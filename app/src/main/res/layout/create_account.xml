@@ -11,36 +11,37 @@
 
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/etCity_ca"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="4dp"
         android:layout_marginRight="8dp"
         android:ems="10"
         android:hint="City"
         android:inputType="textPersonName"
         android:textSize="18sp"
-        app:layout_constraintLeft_toRightOf="@+id/editText6"
+        app:layout_constraintLeft_toRightOf="@+id/etStreet_ca"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/tvAddressInfo" />
 
     <EditText
-        android:id="@+id/editText6"
+        android:id="@+id/etStreet_ca"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Street"
         android:inputType="textPersonName"
         android:textSize="18sp"
-        app:layout_constraintLeft_toRightOf="@+id/button2"
-        app:layout_constraintRight_toLeftOf="@+id/editText3"
+        app:layout_constraintLeft_toRightOf="@+id/btnChooseImg"
+        app:layout_constraintRight_toLeftOf="@+id/etCity_ca"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/tvAddressInfo"
+        android:layout_marginRight="4dp" />
 
     <ImageView
         android:layout_width="75dp"
@@ -48,7 +49,7 @@
         android:src="@mipmap/ic_launcher"
         android:layout_marginStart="8dp"
         app:layout_constraintHorizontal_weight="1"
-        android:id="@+id/imageView"
+        android:id="@+id/ivUserImg_ca"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="8dp"
@@ -56,18 +57,18 @@
 
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/etSurname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="4dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:hint="Surname"
         android:singleLine="true"
         android:textSize="18sp"
-        app:layout_constraintLeft_toRightOf="@+id/editText2"
+        app:layout_constraintLeft_toRightOf="@+id/etName"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_conversion_absoluteHeight="51dp"
@@ -77,7 +78,7 @@
 
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/etName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -89,8 +90,9 @@
         android:textSize="18sp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/guideline3"
-        app:layout_constraintRight_toLeftOf="@+id/editText"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintRight_toLeftOf="@+id/etSurname"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="4dp" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
@@ -102,7 +104,7 @@
         tools:layout_editor_absoluteX="83dp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnChooseImg"
         style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -113,84 +115,87 @@
         android:text="Choose"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/ivUserImg_ca"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintHorizontal_bias="0.5" />
+        android:layout_marginEnd="8dp" />
 
     <RadioButton
-        android:id="@+id/radioButton"
+        android:id="@+id/rbMale"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Male"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/guideline3"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/editText2"
+        app:layout_constraintTop_toBottomOf="@+id/etName"
         android:layout_marginStart="8dp" />
 
     <RadioButton
-        android:id="@+id/radioButton2"
+        android:id="@+id/rbFemale"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Female"
-        app:layout_constraintLeft_toRightOf="@+id/radioButton"
-        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/rbMale"
+        android:layout_marginLeft="10dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        android:layout_marginTop="6dp"
+        app:layout_constraintTop_toBottomOf="@+id/etName" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvAddressInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="18dp"
         android:text="Address information:"
         app:layout_constraintLeft_toLeftOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/radioButton"
+        app:layout_constraintTop_toBottomOf="@+id/rbMale"
         android:layout_marginStart="8dp" />
 
     <EditText
-        android:id="@+id/editText9"
+        android:id="@+id/etState_ca"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="State/Province"
         android:inputType="textPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/editText6"
-        app:layout_constraintRight_toLeftOf="@+id/editText10"
+        app:layout_constraintTop_toBottomOf="@+id/etStreet_ca"
+        app:layout_constraintRight_toLeftOf="@+id/etCountry_ca"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="@+id/guideline3" />
+        app:layout_constraintLeft_toLeftOf="@+id/guideline3"
+        android:layout_marginRight="4dp"
+        app:layout_constraintHorizontal_chainStyle="spread" />
 
     <EditText
-        android:id="@+id/editText10"
+        android:id="@+id/etCountry_ca"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="4dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Country"
         android:inputType="textPersonName"
-        app:layout_constraintLeft_toRightOf="@+id/editText9"
+        app:layout_constraintLeft_toRightOf="@+id/etState_ca"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText3" />
+        app:layout_constraintTop_toBottomOf="@+id/etCity_ca" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/btnShowMap"
         style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="0dp"
-        android:layout_marginLeft="24dp"
+        android:layout_marginLeft="16dp"
         android:text="Show map"
-        app:layout_constraintBottom_toTopOf="@+id/editText3"
-        app:layout_constraintLeft_toRightOf="@+id/textView" />
+        app:layout_constraintBottom_toTopOf="@+id/etCity_ca"
+        app:layout_constraintLeft_toRightOf="@+id/tvAddressInfo"
+        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/rbFemale" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/btnNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -198,6 +203,16 @@
         android:text="Next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/btnSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="Sign up"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <!--<fragment
         android:id="@+id/fragment2"
@@ -211,7 +226,7 @@
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/button7" />
+        app:layout_constraintBottom_toTopOf="@+id/btnNext_su" />
 !-->
 
 </android.support.constraint.ConstraintLayout>
