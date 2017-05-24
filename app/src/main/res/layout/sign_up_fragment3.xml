@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/signUpFr3_tvChooseAllergies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="-134dp"
+        android:text="@string/tvChooseAllergies"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/signUpFr3_rvPlants"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:layout_marginBottom="16dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:id="@+id/signUpFr3_rvPlants"
+        app:layout_constraintBottom_toTopOf="@+id/signUpFr3_ivStep1"
+        app:layout_constraintTop_toBottomOf="@+id/signUpFr3_tvChooseAllergies"
+        android:layout_marginBottom="16dp" />
+
+    <ImageView
+        android:id="@+id/signUpFr3_ivStep1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/presence_invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintBottom_toTopOf="@+id/signUpFr3_btnBack"
+        app:layout_constraintTop_toBottomOf="@+id/signUpFr3_rvPlants"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintRight_toLeftOf="@+id/signUpFr3_ivStep2" />
+    <ImageView
+        android:id="@+id/signUpFr3_ivStep2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/presence_invisible"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintRight_toLeftOf="@+id/signUpFr3_ivStep3"
+        app:layout_constraintLeft_toRightOf="@+id/signUpFr3_ivStep1"
+        app:layout_constraintTop_toTopOf="@+id/signUpFr3_ivStep1"
+        android:layout_marginTop="0dp" />
+    <ImageView
+        android:id="@+id/signUpFr3_ivStep3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/presence_online"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/signUpFr3_ivStep2"
+        app:layout_constraintTop_toTopOf="@+id/signUpFr3_ivStep2"
+        android:layout_marginTop="0dp" />
+
+    <Button
+        android:id="@+id/signUpFr3_btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:text="@string/btnBackText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/signUpFr3_ivStep1" />
+
+    <Button
+        android:id="@+id/signUpFr3_btnFinish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/btnFinishText"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/signUpFr3_btnBack" />
+</android.support.constraint.ConstraintLayout>

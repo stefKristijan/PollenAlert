@@ -11,7 +11,7 @@
 
 
     <EditText
-        android:id="@+id/etCity_ca"
+        android:id="@+id/CreateAccFr_etCity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
@@ -20,15 +20,15 @@
         android:hint="City"
         android:inputType="textPersonName"
         android:textSize="18sp"
-        app:layout_constraintLeft_toRightOf="@+id/etStreet_ca"
+        app:layout_constraintLeft_toRightOf="@+id/signUpFr2_etStreet"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvAddressInfo" />
+        app:layout_constraintTop_toBottomOf="@+id/signUpFr2_tvAddressInfo" />
 
     <EditText
-        android:id="@+id/etStreet_ca"
+        android:id="@+id/signUpFr2_etStreet"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -36,11 +36,11 @@
         android:inputType="textPersonName"
         android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@+id/btnChooseImg"
-        app:layout_constraintRight_toLeftOf="@+id/etCity_ca"
+        app:layout_constraintRight_toLeftOf="@+id/CreateAccFr_etCity"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvAddressInfo"
+        app:layout_constraintTop_toBottomOf="@+id/signUpFr2_tvAddressInfo"
         android:layout_marginRight="4dp" />
 
     <ImageView
@@ -68,7 +68,7 @@
         android:hint="Surname"
         android:singleLine="true"
         android:textSize="18sp"
-        app:layout_constraintLeft_toRightOf="@+id/etName"
+        app:layout_constraintLeft_toRightOf="@+id/createAccFr_etName"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_conversion_absoluteHeight="51dp"
@@ -78,7 +78,7 @@
 
 
     <EditText
-        android:id="@+id/etName"
+        android:id="@+id/createAccFr_etName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -127,7 +127,7 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/guideline3"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/etName"
+        app:layout_constraintTop_toBottomOf="@+id/createAccFr_etName"
         android:layout_marginStart="8dp" />
 
     <RadioButton
@@ -136,13 +136,13 @@
         android:layout_height="wrap_content"
         android:text="Female"
         app:layout_constraintLeft_toRightOf="@+id/rbMale"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="6dp"
-        app:layout_constraintTop_toBottomOf="@+id/etName" />
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/createAccFr_etName" />
 
     <TextView
-        android:id="@+id/tvAddressInfo"
+        android:id="@+id/signUpFr2_tvAddressInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
@@ -153,22 +153,22 @@
         android:layout_marginStart="8dp" />
 
     <EditText
-        android:id="@+id/etState_ca"
+        android:id="@+id/signUpFr2_etState"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="State/Province"
         android:inputType="textPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/etStreet_ca"
-        app:layout_constraintRight_toLeftOf="@+id/etCountry_ca"
+        app:layout_constraintTop_toBottomOf="@+id/signUpFr2_etStreet"
+        app:layout_constraintRight_toLeftOf="@+id/CreateAccFr_etCountry"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/guideline3"
         android:layout_marginRight="4dp"
         app:layout_constraintHorizontal_chainStyle="spread" />
 
     <EditText
-        android:id="@+id/etCountry_ca"
+        android:id="@+id/CreateAccFr_etCountry"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
@@ -177,9 +177,9 @@
         android:ems="10"
         android:hint="Country"
         android:inputType="textPersonName"
-        app:layout_constraintLeft_toRightOf="@+id/etState_ca"
+        app:layout_constraintLeft_toRightOf="@+id/signUpFr2_etState"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etCity_ca" />
+        app:layout_constraintTop_toBottomOf="@+id/CreateAccFr_etCity" />
 
     <Button
         android:id="@+id/btnShowMap"
@@ -189,8 +189,8 @@
         android:layout_marginBottom="0dp"
         android:layout_marginLeft="16dp"
         android:text="Show map"
-        app:layout_constraintBottom_toTopOf="@+id/etCity_ca"
-        app:layout_constraintLeft_toRightOf="@+id/tvAddressInfo"
+        app:layout_constraintBottom_toTopOf="@+id/CreateAccFr_etCity"
+        app:layout_constraintLeft_toRightOf="@+id/signUpFr2_tvAddressInfo"
         android:layout_marginTop="0dp"
         app:layout_constraintTop_toBottomOf="@+id/rbFemale" />
 

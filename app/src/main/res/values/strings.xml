@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">PollenAlert</string>
+    <string name="btnLogInText">Log in</string>
+    <string name="btnSignUpText">Sign up</string>
+    <string name="btnCreateAccText">Create offline account</string>
+    <string name="etUsernameHint">username</string>
+    <string name="etPasswordHint">password</string>
+    <string name="tvWelcomeH2">To start using PollenAlert please choose an option:</string>
+    <string name="createAccFr_etCityHint">City</string>
+    <string name="createAccFr_etCountryHint">Country</string>
+    <string name="createAccFr_etStateHint">State/Province</string>
+    <string name="createAccFr_tvAddress">Address information:</string>
+    <string name="createAccFr_etNameHint">Name</string>
+    <string name="btnShowMapText">Show map</string>
+    <string name="btnCreateText">Create</string>
+    <string name="etStreetNumberHint">Num</string>
+    <string name="etEmailHint">e-mail</string>
+    <string name="etConfirmPasswordText">confirm pass</string>
+    <string name="btnNextText">Next</string>
+    <string name="btnChooseImgText">Browse image</string>
+    <string name="btnBackText">Back</string>
+    <string name="tvChooseAllergies">Please choose plants that you\'re allergic to!</string>
+    <string name="btnFinishText">Finish</string>
 </resources>

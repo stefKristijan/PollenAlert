@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/signUpFr1_ivStep3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/presence_invisible"
+        app:layout_constraintRight_toLeftOf="@+id/signUpFr1_ivStep2"
+        app:layout_constraintLeft_toRightOf="@+id/signUpFr1_ivStep1"
+        app:layout_constraintTop_toTopOf="@+id/signUpFr1_ivStep1" />
+
+    <EditText
+        android:id="@+id/signUpFr1_etUsername"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/etUsernameHint"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/signUpFr1_etPassword"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <EditText
+        android:id="@+id/signUpFr1_etPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:fontFamily="sans-serif"
+        android:hint="@string/etPasswordHint"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/signUpFr1_etEmail"
+        app:layout_constraintTop_toBottomOf="@+id/signUpFr1_etUsername"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/signUpFr1_etConfirmPassword"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp" />
+
+    <EditText
+        android:id="@+id/signUpFr1_etEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/etEmailHint"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/signUpFr1_ivStep1"
+        app:layout_constraintTop_toBottomOf="@+id/signUpFr1_etPassword"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <ImageView
+        android:id="@+id/signUpFr1_ivStep1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/presence_online"
+        app:layout_constraintBottom_toTopOf="@+id/signUpFr1_btnNext"
+        app:layout_constraintTop_toBottomOf="@+id/signUpFr1_etEmail"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/signUpFr1_ivStep3" />
+
+    <Button
+        android:id="@+id/signUpFr1_btnNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/btnNextText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signUpFr1_ivStep1" />
+
+    <EditText
+        android:id="@+id/signUpFr1_etConfirmPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="16dp"
+        android:ems="10"
+        android:fontFamily="sans-serif"
+        android:hint="@string/etConfirmPasswordText"
+        android:inputType="textPassword"
+        app:layout_constraintLeft_toRightOf="@+id/signUpFr1_etPassword"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/signUpFr1_etPassword"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp" />
+
+    <ImageView
+        android:id="@+id/signUpFr1_ivStep2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/presence_invisible"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/signUpFr1_ivStep3"
+        app:layout_constraintTop_toTopOf="@+id/signUpFr1_ivStep3" />
+
+    <Button
+        android:id="@+id/signUpFr1_btnCreateAcc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/btnCreateAccText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/signUpFr1_btnLogIn"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="16dp" />
+
+    <Button
+        android:id="@+id/signUpFr1_btnLogIn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/btnLogInText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/signUpFr1_btnCreateAcc"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp" />
+
+</android.support.constraint.ConstraintLayout>

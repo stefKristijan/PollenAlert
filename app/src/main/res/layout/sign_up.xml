@@ -132,7 +132,7 @@
         app:layout_constraintTop_toBottomOf="@+id/etPassword" />
 
     <EditText
-        android:id="@+id/etState_ca"
+        android:id="@+id/signUpFr2_etState"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
@@ -140,13 +140,13 @@
         android:hint="State/Province"
         android:inputType="textPersonName"
         app:layout_constraintTop_toBottomOf="@+id/etStreet_su"
-        app:layout_constraintRight_toLeftOf="@+id/etCountry_ca"
+        app:layout_constraintRight_toLeftOf="@+id/CreateAccFr_etCountry"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/guideline3" />
 
     <EditText
-        android:id="@+id/etCountry_ca"
+        android:id="@+id/CreateAccFr_etCountry"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -155,7 +155,7 @@
         android:ems="10"
         android:hint="Country"
         android:inputType="textPersonName"
-        app:layout_constraintLeft_toRightOf="@+id/etState_ca"
+        app:layout_constraintLeft_toRightOf="@+id/signUpFr2_etState"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etCity_su"
         android:layout_marginStart="8dp"

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    tools:layout_editor_absoluteY="81dp"
+    tools:layout_editor_absoluteX="0dp">
+
+
+    <ImageView
+        android:id="@+id/signUpFr2_ivInfo"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/signUpFr2_tvAddressInfo"
+        app:layout_constraintLeft_toRightOf="@+id/signUpFr2_tvAddressInfo"
+        app:layout_constraintTop_toTopOf="@+id/signUpFr2_tvAddressInfo"
+        app:layout_constraintVertical_bias="0.523"
+        app:srcCompat="@android:drawable/ic_menu_info_details"
+        android:layout_marginStart="16dp" />
+
+    <EditText
+        android:id="@+id/signUpFr2_etCountry"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:hint="@string/createAccFr_etCountryHint"
+        android:inputType="textPersonName"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toRightOf="@+id/signUpFr2_etState"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/signUpFr2_etState" />
+
+    <EditText
+        android:id="@+id/signUpFr2_etCity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="0dp"
+        android:ems="10"
+        android:hint="@string/createAccFr_etCityHint"
+        android:inputType="textPersonName"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toRightOf="@+id/signUpFr2_etStreetNumber"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/signUpFr2_etStreet" />
+
+    <Button
+        android:id="@+id/createAccFr_btnCreate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/btnCreateText"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/createAccFr_btnShowMap"
+        app:layout_constraintLeft_toRightOf="@+id/createAccFr_btnShowMap"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp" />
+
+    <EditText
+        android:id="@+id/signUpFr2_etStreet"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:ems="10"
+        android:hint="Street"
+        android:inputType="textPersonName"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/signUpFr2_etState"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/signUpFr2_etStreetNumber"
+        app:layout_constraintTop_toBottomOf="@+id/signUpFr2_tvAddressInfo" />
+
+
+    <EditText
+        android:id="@+id/createAccFr_etName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/createAccFr_etNameHint"
+        android:inputType="textPersonName"
+        android:textSize="18sp"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/signUpFr2_tvAddressInfo"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <TextView
+        android:id="@+id/signUpFr2_tvAddressInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/createAccFr_tvAddress"
+        app:layout_constraintBottom_toTopOf="@+id/signUpFr2_etStreet"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/createAccFr_etName"
+        android:layout_marginBottom="16dp" />
+
+    <EditText
+        android:id="@+id/signUpFr2_etState"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="16dp"
+        android:ems="10"
+        android:hint="@string/createAccFr_etStateHint"
+        android:inputType="textPersonName"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/createAccFr_btnShowMap"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/signUpFr2_etCountry"
+        app:layout_constraintTop_toBottomOf="@+id/signUpFr2_etStreet" />
+
+    <Button
+        android:id="@+id/createAccFr_btnSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnSignUpText"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/createAccFr_btnLogIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnLogInText"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/createAccFr_btnShowMap"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/btnShowMapText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signUpFr2_etState"
+        app:layout_constraintRight_toLeftOf="@+id/createAccFr_btnCreate"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp" />
+
+    <EditText
+        android:id="@+id/signUpFr2_etStreetNumber"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:ems="10"
+        android:hint="@string/etStreetNumberHint"
+        android:inputType="textPersonName"
+        android:textSize="14sp"
+        app:layout_constraintLeft_toRightOf="@+id/signUpFr2_etStreet"
+        app:layout_constraintRight_toLeftOf="@+id/signUpFr2_etCity"
+        app:layout_constraintTop_toTopOf="@+id/signUpFr2_etStreet" />
+
+
+</android.support.constraint.ConstraintLayout>
