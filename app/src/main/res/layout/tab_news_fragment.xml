@@ -1,6 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="hr.ferit.kstefancic.pollenalert.MainActivity"
+    android:weightSum="1">
 
-</LinearLayout>
+
+    <TextView
+        android:id="@+id/newsFr_tvSymptoms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/tvSymptomsText"
+        app:layout_constraintBottom_toBottomOf="@+id/newsFr_spinnerSymptoms"
+        app:layout_constraintRight_toLeftOf="@+id/newsFr_spinnerSymptoms" />
+
+    <Spinner
+        android:id="@+id/newsFr_spinnerFeeling"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintRight_toLeftOf="@+id/newsFr_btnPost"
+        android:layout_marginRight="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/newsFr_tvFeeling"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/newsFr_tvFeeling" />
+
+    <TextView
+        android:id="@+id/newsFr_tvFeeling"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/tvFeelingText"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/newsFr_tvLocation"
+        app:layout_constraintLeft_toRightOf="@+id/newsFr_ivUser"
+        android:layout_marginLeft="8dp" />
+
+    <Spinner
+        android:id="@+id/newsFr_spinnerSymptoms"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toLeftOf="@+id/newsFr_btnPost"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/newsFr_spinnerFeeling"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/newsFr_spinnerFeeling"
+        app:layout_constraintHorizontal_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/newsFr_ivUser"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_launcher"
+        android:layout_marginStart="8dp" />
+
+    <TextView
+        android:id="@+id/newsFr_tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="username"
+        app:layout_constraintLeft_toRightOf="@+id/newsFr_ivUser"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="8dp" />
+
+    <TextView
+        android:id="@+id/newsFr_tvLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:text="Location"
+        app:layout_constraintLeft_toRightOf="@+id/newsFr_ivUser"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/newsFr_tvUsername" />
+
+    <LinearLayout
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/newsFr_llFilters"
+        tools:layout_editor_absoluteY="114dp">
+
+        <TextView
+            android:id="@+id/newsFr_tvFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="@string/tvFilterByText" />
+
+        <CheckBox
+            android:id="@+id/newsFr_cbLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="@string/cbLocationText" />
+
+        <CheckBox
+            android:id="@+id/newsFr_cbSymptoms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="@string/cbSymptomsText" />
+
+        <CheckBox
+            android:id="@+id/newsFr_cbAllergies"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:text="@string/cbAllergiesText" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/newsFr_rvNews"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newsFr_llFilters" />
+
+    <Button
+        android:id="@+id/newsFr_btnPost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:text="@string/btnPostText"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/newsFr_spinnerFeeling"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/newsFr_spinnerSymptoms"
+        android:layout_marginBottom="8dp" />
+
+</android.support.constraint.ConstraintLayout>

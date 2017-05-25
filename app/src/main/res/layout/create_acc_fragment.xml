@@ -11,19 +11,19 @@
 
 
     <ImageView
-        android:id="@+id/signUpFr2_ivInfo"
+        android:id="@+id/createAccFr_ivInfo"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginLeft="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/signUpFr2_tvAddressInfo"
-        app:layout_constraintLeft_toRightOf="@+id/signUpFr2_tvAddressInfo"
-        app:layout_constraintTop_toTopOf="@+id/signUpFr2_tvAddressInfo"
+        app:layout_constraintBottom_toBottomOf="@+id/createAccFr_tvAddressInfo"
+        app:layout_constraintLeft_toRightOf="@+id/createAccFr_tvAddressInfo"
+        app:layout_constraintTop_toTopOf="@+id/createAccFr_tvAddressInfo"
         app:layout_constraintVertical_bias="0.523"
         app:srcCompat="@android:drawable/ic_menu_info_details"
         android:layout_marginStart="16dp" />
 
     <EditText
-        android:id="@+id/signUpFr2_etCountry"
+        android:id="@+id/createAccFr_etCountry"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -34,12 +34,12 @@
         android:hint="@string/createAccFr_etCountryHint"
         android:inputType="textPersonName"
         android:textSize="14sp"
-        app:layout_constraintLeft_toRightOf="@+id/signUpFr2_etState"
+        app:layout_constraintLeft_toRightOf="@+id/createAccFr_etState"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/signUpFr2_etState" />
+        app:layout_constraintTop_toTopOf="@+id/createAccFr_etState" />
 
     <EditText
-        android:id="@+id/signUpFr2_etCity"
+        android:id="@+id/createAccFr_etCity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -49,9 +49,9 @@
         android:hint="@string/createAccFr_etCityHint"
         android:inputType="textPersonName"
         android:textSize="14sp"
-        app:layout_constraintLeft_toRightOf="@+id/signUpFr2_etStreetNumber"
+        app:layout_constraintLeft_toRightOf="@+id/createAccFr_etStreetNumber"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/signUpFr2_etStreet" />
+        app:layout_constraintTop_toTopOf="@+id/createAccFr_etStreet" />
 
     <Button
         android:id="@+id/createAccFr_btnCreate"
@@ -67,7 +67,7 @@
         android:layout_marginEnd="16dp" />
 
     <EditText
-        android:id="@+id/signUpFr2_etStreet"
+        android:id="@+id/createAccFr_etStreet"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -76,11 +76,11 @@
         android:hint="Street"
         android:inputType="textPersonName"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/signUpFr2_etState"
+        app:layout_constraintBottom_toTopOf="@+id/createAccFr_etState"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/signUpFr2_etStreetNumber"
-        app:layout_constraintTop_toBottomOf="@+id/signUpFr2_tvAddressInfo" />
+        app:layout_constraintRight_toLeftOf="@+id/createAccFr_etStreetNumber"
+        app:layout_constraintTop_toBottomOf="@+id/createAccFr_tvAddressInfo" />
 
 
     <EditText
@@ -93,7 +93,7 @@
         android:textSize="18sp"
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/signUpFr2_tvAddressInfo"
+        app:layout_constraintBottom_toTopOf="@+id/createAccFr_tvAddressInfo"
         android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="16dp"
@@ -104,11 +104,11 @@
         android:layout_marginEnd="16dp" />
 
     <TextView
-        android:id="@+id/signUpFr2_tvAddressInfo"
+        android:id="@+id/createAccFr_tvAddressInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/createAccFr_tvAddress"
-        app:layout_constraintBottom_toTopOf="@+id/signUpFr2_etStreet"
+        app:layout_constraintBottom_toTopOf="@+id/createAccFr_etStreet"
         android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="16dp"
@@ -116,7 +116,7 @@
         android:layout_marginBottom="16dp" />
 
     <EditText
-        android:id="@+id/signUpFr2_etState"
+        android:id="@+id/createAccFr_etState"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -131,8 +131,8 @@
         app:layout_constraintBottom_toTopOf="@+id/createAccFr_btnShowMap"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/signUpFr2_etCountry"
-        app:layout_constraintTop_toBottomOf="@+id/signUpFr2_etStreet" />
+        app:layout_constraintRight_toLeftOf="@+id/createAccFr_etCountry"
+        app:layout_constraintTop_toBottomOf="@+id/createAccFr_etStreet" />
 
     <Button
         android:id="@+id/createAccFr_btnSignUp"
@@ -161,7 +161,7 @@
         android:text="@string/btnShowMapText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signUpFr2_etState"
+        app:layout_constraintTop_toBottomOf="@+id/createAccFr_etState"
         app:layout_constraintRight_toLeftOf="@+id/createAccFr_btnCreate"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
@@ -169,7 +169,7 @@
         android:layout_marginEnd="8dp" />
 
     <EditText
-        android:id="@+id/signUpFr2_etStreetNumber"
+        android:id="@+id/createAccFr_etStreetNumber"
         android:layout_width="40dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -179,9 +179,9 @@
         android:hint="@string/etStreetNumberHint"
         android:inputType="textPersonName"
         android:textSize="14sp"
-        app:layout_constraintLeft_toRightOf="@+id/signUpFr2_etStreet"
-        app:layout_constraintRight_toLeftOf="@+id/signUpFr2_etCity"
-        app:layout_constraintTop_toTopOf="@+id/signUpFr2_etStreet" />
+        app:layout_constraintLeft_toRightOf="@+id/createAccFr_etStreet"
+        app:layout_constraintRight_toLeftOf="@+id/createAccFr_etCity"
+        app:layout_constraintTop_toTopOf="@+id/createAccFr_etStreet" />
 
 
 </android.support.constraint.ConstraintLayout>

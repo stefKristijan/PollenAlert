@@ -102,7 +102,7 @@
         android:layout_marginRight="16dp"
         android:ems="10"
         android:fontFamily="sans-serif"
-        android:hint="@string/etConfirmPasswordText"
+        android:hint="@string/etConfirmPasswordHint"
         android:inputType="textPassword"
         app:layout_constraintLeft_toRightOf="@+id/signUpFr1_etPassword"
         app:layout_constraintRight_toRightOf="parent"

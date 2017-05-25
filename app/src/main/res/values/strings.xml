@@ -15,10 +15,20 @@
     <string name="btnCreateText">Create</string>
     <string name="etStreetNumberHint">Num</string>
     <string name="etEmailHint">e-mail</string>
-    <string name="etConfirmPasswordText">confirm pass</string>
+    <string name="etConfirmPasswordHint">confirm pass</string>
     <string name="btnNextText">Next</string>
     <string name="btnChooseImgText">Browse image</string>
     <string name="btnBackText">Back</string>
-    <string name="tvChooseAllergies">Please choose plants that you\'re allergic to!</string>
+    <string name="tvChooseAllergiesText">Please choose plants that you\'re allergic to!</string>
     <string name="btnFinishText">Finish</string>
+    <string name="tvNewEntryText">New entry:</string>
+    <string name="tvFeelingText">I\'m feeling:</string>
+    <string name="tvSymptomsText">Symptoms:</string>
+    <string name="btnAddText">Add</string>
+    <string name="tvMyDiaryText">My diary</string>
+    <string name="tvFilterByText">Filter by:</string>
+    <string name="cbLocationText">Location</string>
+    <string name="cbSymptomsText">Symptoms</string>
+    <string name="cbAllergiesText">Allergies</string>
+    <string name="btnPostText">Post</string>
 </resources>
