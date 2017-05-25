@@ -31,4 +31,5 @@
     <string name="cbSymptomsText">Symptoms</string>
     <string name="cbAllergiesText">Allergies</string>
     <string name="btnPostText">Post</string>
+    <string name="tvWelcome">Welcome!</string>
 </resources>

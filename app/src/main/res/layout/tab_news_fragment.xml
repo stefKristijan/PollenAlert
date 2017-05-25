@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="hr.ferit.kstefancic.pollenalert.MainActivity"
+    tools:context="hr.ferit.kstefancic.pollenalert.FirstActivity"
     android:weightSum="1">
 
 
