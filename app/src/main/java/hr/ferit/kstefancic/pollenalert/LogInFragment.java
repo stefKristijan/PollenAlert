@@ -3,6 +3,7 @@ package hr.ferit.kstefancic.pollenalert;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +45,8 @@ public class LogInFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-
+                Intent mainActIntent = new Intent(getActivity(),MainActivity.class);
+                startActivity(mainActIntent);
             }
         });
         this.btnSignUp = (Button) layout.findViewById(R.id.logInFr_btnSignUp);

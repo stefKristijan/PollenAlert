@@ -3,6 +3,7 @@ package hr.ferit.kstefancic.pollenalert;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,8 @@ public class CreateAccFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //opening second activity
+                Intent mainActIntent = new Intent(getActivity(),MainActivity.class);
+                startActivity(mainActIntent);
             }
         });
 
