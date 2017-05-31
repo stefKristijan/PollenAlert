@@ -15,7 +15,7 @@
     <string name="btnCreateText">Create</string>
     <string name="etStreetNumberHint">Num</string>
     <string name="etEmailHint">e-mail</string>
-    <string name="etConfirmPasswordHint">confirm pass</string>
+    <string name="etConfirmPasswordHint">confirm password</string>
     <string name="btnNextText">Next</string>
     <string name="btnChooseImgText">Browse image</string>
     <string name="btnBackText">Back</string>
@@ -31,5 +31,5 @@
     <string name="cbSymptomsText">Symptoms</string>
     <string name="cbAllergiesText">Allergies</string>
     <string name="btnPostText">Post</string>
-    <string name="tvWelcome">Welcome!</string>
+    <string name="tvWelcomeH1">Welcome!</string>
 </resources>
