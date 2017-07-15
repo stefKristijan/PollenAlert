@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 public class FirstActivity extends AppCompatActivity {
 
-    private static final String OPTION_FRAGMENT = "option_fragment";
+    private static final String LOGIN_FRAGMENT = "login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class FirstActivity extends AppCompatActivity {
     private void setUpFragment() {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.activityFirst_fl, new OptionFragment(), this.OPTION_FRAGMENT);
+        fragmentTransaction.add(R.id.activityFirst_fl, new LogInFragment(), this.LOGIN_FRAGMENT);
         fragmentTransaction.commit();
     }
 }

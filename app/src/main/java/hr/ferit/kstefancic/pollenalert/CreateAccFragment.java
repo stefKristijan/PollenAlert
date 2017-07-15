@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * Created by Kristijan on 31.5.2017..
@@ -17,7 +18,8 @@ import android.widget.ImageView;
 
 public class CreateAccFragment extends Fragment {
 
-    Button btnCreate, btnLogIn, btnSignUp;
+    Button btnCreate;
+    TextView tvLogin, tvRegister;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,8 +40,8 @@ public class CreateAccFragment extends Fragment {
             }
         });
 
-        this.btnLogIn = (Button) layout.findViewById(R.id.createAccFr_btnLogIn);
-        this.btnLogIn.setOnClickListener(new View.OnClickListener() {
+        this.tvLogin = (TextView) layout.findViewById(R.id.createAccFr_tvLogin);
+        this.tvLogin.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -50,8 +52,8 @@ public class CreateAccFragment extends Fragment {
             }
         });
 
-        this.btnSignUp = (Button) layout.findViewById(R.id.createAccFr_btnSignUp);
-        this.btnSignUp.setOnClickListener(new View.OnClickListener() {
+        this.tvRegister = (TextView) layout.findViewById(R.id.createAccFr_tvRegister);
+        this.tvRegister.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {

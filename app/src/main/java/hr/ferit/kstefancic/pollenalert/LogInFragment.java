@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 /**
  * Created by Kristijan on 31.5.2017..
@@ -17,7 +18,8 @@ import android.widget.EditText;
 
 public class LogInFragment extends Fragment {
 
-    private Button btnLogIn, btnSignUp, btnCreateAcc;
+    private Button btnLogIn;
+    TextView tvRegister, tvCreateAcc;
     private EditText etUsername, etPassword;
 
 
@@ -29,8 +31,8 @@ public class LogInFragment extends Fragment {
     }
 
     private void setUI(View layout) {
-        this.btnCreateAcc = (Button) layout.findViewById(R.id.logInFr_btnCreateAcc);
-        this.btnCreateAcc.setOnClickListener(new View.OnClickListener() {
+        this.tvCreateAcc = (TextView) layout.findViewById(R.id.logInFr_tvCreateAcc);
+        this.tvCreateAcc.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -49,8 +51,8 @@ public class LogInFragment extends Fragment {
                 startActivity(mainActIntent);
             }
         });
-        this.btnSignUp = (Button) layout.findViewById(R.id.logInFr_btnSignUp);
-        this.btnSignUp.setOnClickListener(new View.OnClickListener() {
+        this.tvRegister = (TextView) layout.findViewById(R.id.logInFr_tvRegister);
+        this.tvRegister.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {

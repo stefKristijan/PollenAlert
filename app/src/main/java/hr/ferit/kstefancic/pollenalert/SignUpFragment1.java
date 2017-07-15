@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by Kristijan on 31.5.2017..
@@ -16,8 +19,9 @@ import android.widget.EditText;
 
 public class SignUpFragment1 extends Fragment {
 
-    private Button btnLogIn, btnNext, btnCreateAcc;
-    private EditText etUsername, etPassword, etConfirmPassword, etEmail;
+    Button btnNext;
+    EditText etUsername, etPassword, etConfirmPassword, etEmail;
+    TextView tvLogIn, tvCreateAcc;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -27,8 +31,8 @@ public class SignUpFragment1 extends Fragment {
     }
 
     private void setUI(View layout) {
-        this.btnCreateAcc = (Button) layout.findViewById(R.id.signUpFr1_btnCreateAcc);
-        this.btnCreateAcc.setOnClickListener(new View.OnClickListener() {
+        this.tvCreateAcc = (TextView) layout.findViewById(R.id.signUpFr1_tvOfflineAccount);
+        this.tvCreateAcc.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -38,8 +42,8 @@ public class SignUpFragment1 extends Fragment {
                 fragmentTransaction.commit();
             }
         });
-        this.btnLogIn = (Button) layout.findViewById(R.id.signUpFr1_btnLogIn);
-        this.btnLogIn.setOnClickListener(new View.OnClickListener() {
+        this.tvLogIn = (TextView) layout.findViewById(R.id.signUpFr1_tvLogin);
+        this.tvLogIn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {

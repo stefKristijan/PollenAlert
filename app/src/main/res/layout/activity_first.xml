@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
 
-    <TextView
-        android:id="@+id/activityFirst_tvWelcome"
+    <ImageView
+        android:id="@+id/activityFirst_ivLogo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/tvWelcomeH1"
-        android:textSize="@dimen/H1TextSize"
-        android:textAlignment="center"/>
-
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/pollenalertlogo"
+        android:layout_margin="5dp"/>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/activityFirst_fl"/>
+        android:id="@+id/activityFirst_fl"
+        android:layout_weight="1"/>
 </LinearLayout>

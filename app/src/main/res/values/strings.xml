@@ -3,8 +3,8 @@
     <string name="btnLogInText">Log in</string>
     <string name="btnSignUpText">Sign up</string>
     <string name="btnCreateAccText">Create offline account</string>
-    <string name="etUsernameHint">username</string>
-    <string name="etPasswordHint">password</string>
+    <string name="etUsernameHint">Username</string>
+    <string name="etPasswordHint">Password</string>
     <string name="tvWelcomeH2">To start using PollenAlert please choose an option:</string>
     <string name="createAccFr_etCityHint">City</string>
     <string name="createAccFr_etCountryHint">Country</string>
@@ -14,8 +14,8 @@
     <string name="btnShowMapText">Show map</string>
     <string name="btnCreateText">Create</string>
     <string name="etStreetNumberHint">Num</string>
-    <string name="etEmailHint">e-mail</string>
-    <string name="etConfirmPasswordHint">confirm password</string>
+    <string name="etEmailHint">E-mail</string>
+    <string name="etConfirmPasswordHint">Confirm password</string>
     <string name="btnNextText">Next</string>
     <string name="btnChooseImgText">Browse image</string>
     <string name="btnBackText">Back</string>
@@ -35,4 +35,13 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="tvNoAccount">Don\'t have an account?</string>
+    <string name="tvRegister"><b><u>Register</u></b> or </string>
+    <string name="tvCreateAcc">create an <b><u>offline account!</u></b></string>
+    <string name="tvHaveAccount">You already have an account?</string>
+    <string name="tvLogin"><b><u>Login!</u></b></string>
+    <string name="tvOfflineAccount"><b><u>offline account!</u></b></string>
+    <string name="tvCreate">You can also create an </string>
+    <string name="tvYouCan">You can also</string>
+    <string name="tvRegister2"><u><b>Register!</b></u></string>
 </resources>
