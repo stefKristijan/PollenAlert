@@ -15,6 +15,7 @@ public class FirstActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
 
+        if(checkI)
         setUpFragment();
 
     }

@@ -23,16 +23,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signUpFr2_etCountry" />
 
-    <ImageView
-        android:id="@+id/signUpFr2_ivInfo"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:srcCompat="@android:drawable/ic_menu_info_details"
-        app:layout_constraintLeft_toRightOf="@+id/signUpFr2_tvAddressInfo"
-        app:layout_constraintBottom_toBottomOf="@+id/signUpFr2_tvAddressInfo"
-        app:layout_constraintTop_toTopOf="@+id/signUpFr2_tvAddressInfo"
-        android:layout_marginLeft="8dp" />
-
     <EditText
         android:id="@+id/signUpFr2_etCountry"
         android:layout_width="0dp"
@@ -194,7 +184,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signUpFr2_etCountry" />
 
-    <Button
+    Button
         android:id="@+id/signUpFr2_btnShowMap"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
