@@ -7,15 +7,20 @@ import java.io.Serializable;
  */
 
 public class User implements Serializable {
-    private String mUsername, mUniqueId, mFullName, mEmail;
+    private String mUsername, mUniqueId, mFullName, mPassword, mEmail;
     private int id;
 
-    public User(String mUsername, String mUniqueId, String mFullName, String mEmail, int id) {
+    public User(String mUsername, String mEmail) {
         this.mUsername = mUsername;
-        this.mUniqueId = mUniqueId;
-        this.mFullName = mFullName;
         this.mEmail = mEmail;
-        this.id = id;
+    }
+
+    public String getmPassword() {
+        return mPassword;
+    }
+
+    public void setmPassword(String mPassword) {
+        this.mPassword = mPassword;
     }
 
     public String getmUsername() {

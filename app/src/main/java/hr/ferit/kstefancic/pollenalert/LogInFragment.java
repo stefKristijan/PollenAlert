@@ -44,6 +44,8 @@ public class LogInFragment extends Fragment {
     private Button btnLogIn;
     TextView tvRegister, tvCreateAcc;
     private EditText etUsername, etPassword;
+    User mUser;
+    ProgressDialog progressDialog;
 
 
     @Override
@@ -54,6 +56,7 @@ public class LogInFragment extends Fragment {
     }
 
     private void setUI(View layout) {
+        progressDialog= new ProgressDialog(getActivity());
         this.etUsername = (EditText) layout.findViewById(R.id.logInFr_etUsername);
         this.etPassword = (EditText) layout.findViewById(R.id.logInFr_etPassword);
         this.tvCreateAcc = (TextView) layout.findViewById(R.id.logInFr_tvCreateAcc);
@@ -75,10 +78,10 @@ public class LogInFragment extends Fragment {
                 String username = etUsername.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
                 if(username.isEmpty()||password.isEmpty()){
-                    Toast.makeText(getActivity().getApplicationContext(),EMPTY_FIELDS,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),EMPTY_FIELDS,Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    new Login(getActivity().getApplicationContext()).execute(username,password);
+                   login(username,password);
                 }
 
             }
@@ -101,89 +104,78 @@ public class LogInFragment extends Fragment {
 
     }
 
-    class Login extends AsyncTask<String,Void,User> {
+    private void login(final String username, final String password) {
 
-        Context mContext;
-        ProgressDialog progressDialog;
-        User mUser;
+        showDialog();
+        String tag_str_req = "req_login";
 
-        public Login(Context mContext) {
-            this.mContext = mContext;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            progressDialog = new ProgressDialog(mContext);
-            progressDialog.setTitle("Logging in");
-            progressDialog.setMessage("Please wait...");
-            progressDialog.setIndeterminate(true);
-            progressDialog.setCancelable(false);
-            progressDialog.show();
-        }
-
-        @Override
-        protected User doInBackground(String... params) {
-            String tag_str_req = "req_login";
-            final String username = params[0];
-            final String password = params[1];
-
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_LOGIN, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Log.d("RESPONSE",response.toString());
-                    mUser = parseJSON(response);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_LOGIN, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("RESPONSE",response.toString());
+                mUser = parseJSON(response);
+                if(mUser!=null){
+                    Toast.makeText(getActivity(),LOGIN_SUCCESS,Toast.LENGTH_SHORT).show();
+                    Intent mainIntent = new Intent(getActivity(),MainActivity.class);
+                    mainIntent.putExtra(USER, mUser);
+                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(mainIntent);
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e("RESPONSE","Login error: "+ error.getMessage());
-                    Toast.makeText(mContext,error.getMessage(),Toast.LENGTH_SHORT).show();
-                }
-            }){
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<String,String>();
-                    params.put("username", username);
-                    params.put("password",password);
-
-                    return params;
-                }
-            };
-
-            AppController.getInstance().addToRequestQueue(stringRequest,tag_str_req);
-            return mUser;
-        }
-
-        @Override
-        protected void onPostExecute(User user) {
-            progressDialog.dismiss();
-            if(mUser!=null){
-                Toast.makeText(mContext,LOGIN_SUCCESS,Toast.LENGTH_SHORT).show();
-                Intent mainIntent = new Intent(mContext,MainActivity.class);
-                mainIntent.putExtra(USER, mUser);
-                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                hideDialog();
             }
-        }
-
-        private User parseJSON(String response) {
-            try {
-                JSONObject jObj = new JSONObject(response);
-                boolean error = jObj.getBoolean("error");
-
-                if(!error){
-                    User user = new User(jObj.getString("username"),jObj.getString("unique_id"),jObj.getString("full_name"),jObj.getString("email"),jObj.getInt("id"));
-                    return user;
-                }
-                else{
-                    String errorMsg = jObj.getString("error_msg");
-                    Toast.makeText(mContext,errorMsg,Toast.LENGTH_SHORT).show();
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("RESPONSE","Login error: "+ error.getMessage());
+                Toast.makeText(getActivity(),error.getMessage(),Toast.LENGTH_SHORT).show();
+                hideDialog();
             }
-            return null;
-        }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String,String>();
+                params.put("username", username);
+                params.put("password",password);
+
+                return params;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(stringRequest,tag_str_req);
 
     }
+
+    private void showDialog(){
+        progressDialog.setTitle("Logging in");
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+    private void hideDialog(){
+        progressDialog.dismiss();
+    }
+
+    private User parseJSON(String response) {
+        try {
+            JSONObject jObj = new JSONObject(response);
+            boolean error = jObj.getBoolean("error");
+
+            if(!error){
+                User user = new User(jObj.getString("username"),jObj.getString("email"));
+                user.setId(jObj.getInt("id"));
+                user.setmUniqueId(jObj.getString("unique_id"));
+                return user;
+            }
+            else{
+                String errorMsg = jObj.getString("error_msg");
+                Toast.makeText(getActivity(),errorMsg,Toast.LENGTH_SHORT).show();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     
 }
