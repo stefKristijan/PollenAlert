@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import hr.ferit.kstefancic.pollenalert.helper.SessionManager;
+
 public class FirstActivity extends AppCompatActivity implements SignUpFragment1.UserCreatedListener, SignUpFragment2.LocationCreatedListener, SignUpFragment3.FinishListener {
 
     private static final String LOGIN_FRAGMENT = "login";
@@ -33,13 +35,22 @@ public class FirstActivity extends AppCompatActivity implements SignUpFragment1.
     private Location mLocation;
     private ArrayList<Pollen> mPollenList;
     ProgressDialog progressDialog;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
+        checkIfLoggedIn();
         setUpFragment();
 
+    }
+
+    private void checkIfLoggedIn() {
+        this.sessionManager = new SessionManager(this);
+        if(this.sessionManager.isLoggedIn()){
+            
+        }
     }
 
     private void setUpFragment() {
