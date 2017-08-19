@@ -23,19 +23,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 import hr.ferit.kstefancic.pollenalert.helper.SessionManager;
+import hr.ferit.kstefancic.pollenalert.helper.UserDBHelper;
 
-public class FirstActivity extends AppCompatActivity implements SignUpFragment1.UserCreatedListener, SignUpFragment2.LocationCreatedListener, SignUpFragment3.FinishListener {
+public class FirstActivity extends AppCompatActivity implements LogInFragment.LoggedInListener, SignUpFragment1.UserCreatedListener, SignUpFragment2.LocationCreatedListener, SignUpFragment3.FinishListener {
 
     private static final String LOGIN_FRAGMENT = "login";
     private static final String URL_REGISTER = "https://pollenalert.000webhostapp.com/register.php";
     private static final String REGISTRATION_SUCCESS = "Successfully registered, you can now log in!";
     private static final String URL_ADDLOCATION = "https://pollenalert.000webhostapp.com/insert_location.php";
     private static final String ADDLOCATION_SUCCESS = "Location successfully added to database!";
+    public static final String USER = "user";
+    private static final String LOGIN_SUCCESS = "You were successfully logged in!";
     private User mUser;
     private Location mLocation;
     private ArrayList<Pollen> mPollenList;
-    ProgressDialog progressDialog;
-    private SessionManager sessionManager;
+    private ProgressDialog progressDialog;
+    private SessionManager mSessionManager;
+    private UserDBHelper mUserDBHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +51,14 @@ public class FirstActivity extends AppCompatActivity implements SignUpFragment1.
     }
 
     private void checkIfLoggedIn() {
-        this.sessionManager = new SessionManager(this);
-        if(this.sessionManager.isLoggedIn()){
-
+        this.mSessionManager = new SessionManager(this);
+        if(this.mSessionManager.isLoggedIn()){
+            mUserDBHelper = new UserDBHelper(this);
+            mUser = mUserDBHelper.getUser();
+            Intent mainIntent = new Intent(FirstActivity.this,MainActivity.class);
+            mainIntent.putExtra(USER, mUser);
+            mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(mainIntent);
         }
     }
 
@@ -144,6 +153,7 @@ public class FirstActivity extends AppCompatActivity implements SignUpFragment1.
     }
 
     private void addLocationToDatabase() {
+        showDialog("Adding location");
         String tag_str_req = "addLocation_req";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ADDLOCATION, new Response.Listener<String>() {
             @Override
@@ -184,7 +194,6 @@ public class FirstActivity extends AppCompatActivity implements SignUpFragment1.
                 return params;
             }
         };
-
         AppController.getInstance().addToRequestQueue(stringRequest,tag_str_req);
 
     }
@@ -198,5 +207,17 @@ public class FirstActivity extends AppCompatActivity implements SignUpFragment1.
     }
     private void hideDialog(){
         progressDialog.dismiss();
+    }
+
+    @Override
+    public void onLoggedIn(User user) {
+        Toast.makeText(this,LOGIN_SUCCESS,Toast.LENGTH_SHORT).show();
+        mUserDBHelper = new UserDBHelper(this);
+        mUserDBHelper.insertUser(user);
+        mSessionManager.setLogin(true);
+        Intent mainIntent = new Intent(FirstActivity.this,MainActivity.class);
+        mainIntent.putExtra(USER,user);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
     }
 }

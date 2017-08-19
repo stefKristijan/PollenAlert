@@ -39,13 +39,15 @@ public class LogInFragment extends Fragment {
 
     private static final String EMPTY_FIELDS = "Please enter username and password to log in!";
     private static final String URL_LOGIN = "http://pollenalert.000webhostapp.com/login.php";
-    private static final String LOGIN_SUCCESS = "You were successfully logged in!";
+
     public static final String USER = "user";
     private Button btnLogIn;
     TextView tvRegister, tvCreateAcc;
     private EditText etUsername, etPassword;
     User mUser;
     ProgressDialog progressDialog;
+    LoggedInListener mLoggedInListener;
+
 
 
     @Override
@@ -115,11 +117,7 @@ public class LogInFragment extends Fragment {
                 Log.d("RESPONSE",response.toString());
                 mUser = parseJSON(response);
                 if(mUser!=null){
-                    Toast.makeText(getActivity(),LOGIN_SUCCESS,Toast.LENGTH_SHORT).show();
-                    Intent mainIntent = new Intent(getActivity(),MainActivity.class);
-                    mainIntent.putExtra(USER, mUser);
-                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(mainIntent);
+                    mLoggedInListener.onLoggedIn(mUser);
                 }
                 hideDialog();
             }
@@ -177,5 +175,23 @@ public class LogInFragment extends Fragment {
         return null;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof LoggedInListener)
+        {
+            this.mLoggedInListener = (LoggedInListener) context;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        this.mLoggedInListener=null;
+    }
+
+    public interface LoggedInListener{
+        void onLoggedIn(User user);
+    }
     
 }

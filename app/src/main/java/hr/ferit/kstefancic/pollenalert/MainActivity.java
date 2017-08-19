@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,12 +38,19 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private Toolbar toolbar;
     private TabLayout tabLayout;
+    private User mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setUpUI();
+        mUser = (User) getIntent().getSerializableExtra(FirstActivity.USER);
+        Toast.makeText(this,mUser.getmEmail(),Toast.LENGTH_SHORT).show();
+    }
+
+    private void setUpUI() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -55,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
     }
 
 
