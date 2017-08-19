@@ -49,7 +49,7 @@ public class FirstActivity extends AppCompatActivity implements SignUpFragment1.
     private void checkIfLoggedIn() {
         this.sessionManager = new SessionManager(this);
         if(this.sessionManager.isLoggedIn()){
-            
+
         }
     }
 
