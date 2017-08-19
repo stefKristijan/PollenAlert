@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import hr.ferit.kstefancic.pollenalert.Location;
 import hr.ferit.kstefancic.pollenalert.User;
 
 /**
@@ -18,6 +19,8 @@ public class UserDBHelper extends SQLiteOpenHelper {
             Schema.USER_UNIQID+" VARCHAR(23),"+Schema.USERNAME+" VARCHAR(50),"+Schema.EMAIL+" VARCHAR(150),"+Schema.FULL_NAME+" VARCHAR(100));";
     private static final String DROP_TABLE_USER = "DROP TABLE IF EXISTS"+Schema.TABLE_USER;
     private static final String SELECT_USER = "SELECT * FROM " + Schema.TABLE_USER;
+    private static final String CREATE_TABLE_LOCATION =  "CREATE TABLE " + Schema.TABLE_LOCATION + " (" + Schema.LOCATION_ID+" INTEGER," +
+            Schema.STREET+" VARCHAR(100),"+Schema.STREET_NUM+" VARCHAR(10),"+Schema.CITY+" VARCHAR(50),"+Schema.STATE+" VARCHAR(50),"+Schema.COUNTRY+" VARCHAR(50));";
     private static UserDBHelper mUserDBHelper = null;
 
     public UserDBHelper(Context context) {
@@ -54,6 +57,25 @@ public class UserDBHelper extends SQLiteOpenHelper {
         wdb.close();
     }
 
+    public void createTableLocation(){
+        SQLiteDatabase wdb = this.getWritableDatabase();
+        wdb.execSQL(CREATE_TABLE_LOCATION);
+        wdb.close();
+    }
+
+    public void insertLocation (Location location){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Schema.LOCATION_ID,location.getId());
+        contentValues.put(Schema.STREET,location.getmStreet());
+        contentValues.put(Schema.STREET_NUM,location.getmNumber());
+        contentValues.put(Schema.CITY,location.getmCity());
+        contentValues.put(Schema.STATE,location.getmState());
+        contentValues.put(Schema.COUNTRY,location.getmCountry());
+        SQLiteDatabase wdb = this.getWritableDatabase();
+        wdb.insert(Schema.TABLE_LOCATION,Schema.LOCATION_ID,contentValues);
+        wdb.close();
+    }
+
     public User getUser(){
         User user = null;
         SQLiteDatabase wdb = this.getWritableDatabase();
@@ -74,6 +96,12 @@ public class UserDBHelper extends SQLiteOpenHelper {
         return user;
     }
 
+    public void deleteLocations(){
+        SQLiteDatabase wdb = this.getWritableDatabase();
+        wdb.delete(Schema.TABLE_LOCATION,null,null);
+        wdb.close();
+    }
+
     public void deleteUser(){
         SQLiteDatabase wdb = this.getWritableDatabase();
         wdb.delete(Schema.TABLE_USER,null,null);
@@ -90,5 +118,13 @@ public class UserDBHelper extends SQLiteOpenHelper {
         static final String USERNAME = "username";
         static final String EMAIL = "email";
         static final String FULL_NAME = "full_name";
+        //location table
+        static final String TABLE_LOCATION = "location";
+        static final String LOCATION_ID = "id";
+        static final String STREET = "street";
+        static final String STREET_NUM = "street_num";
+        static final String CITY = "city";
+        static final String STATE = "state";
+        static final String COUNTRY = "country";
     }
 }

@@ -10,6 +10,15 @@ public class User implements Serializable {
     private String mUsername, mUniqueId, mFullName, mPassword, mEmail;
     private int id;
 
+    public User (){
+        mUniqueId ="";
+        mEmail = "";
+        mFullName ="";
+        mPassword="";
+        id=-1;
+        mUsername="";
+    }
+
     public User(String mUsername, String mEmail) {
         this.mUsername = mUsername;
         this.mEmail = mEmail;

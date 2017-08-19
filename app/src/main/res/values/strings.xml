@@ -6,8 +6,8 @@
     <string name="etUsernameHint">Username</string>
     <string name="etPasswordHint">Password</string>
     <string name="tvWelcomeH2">To start using PollenAlert please choose an option:</string>
-    <string name="createAccFr_etCityHint">City</string>
-    <string name="createAccFr_etCountryHint">Country</string>
+    <string name="createAccFr_etCityHint">City *</string>
+    <string name="createAccFr_etCountryHint">Country *</string>
     <string name="createAccFr_etStateHint">State/Province</string>
     <string name="createAccFr_tvAddress">Address information:</string>
     <string name="createAccFr_etNameHint">Name</string>

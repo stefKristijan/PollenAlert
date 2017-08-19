@@ -21,7 +21,7 @@ import static hr.ferit.kstefancic.pollenalert.LogInFragment.USER;
 
 public class SignUpFragment2 extends Fragment {
 
-    private static final String EMPTY_FIELDS = "Please fill all required fields to continue!";
+    private static final String EMPTY_FIELDS = "Please fill all required* fields to continue!";
     private Button btnBack, btnNext;
     private EditText etStreet, etNumber, etState, etCity, etCountry;
     private LocationCreatedListener mLocationCreatedListener;
@@ -68,7 +68,7 @@ public class SignUpFragment2 extends Fragment {
         String state = etState.getText().toString().trim();
         String number = etNumber.getText().toString().trim();
         String city = etCity.getText().toString().trim();
-        if(state.isEmpty()||street.isEmpty()||country.isEmpty()||number.isEmpty()||city.isEmpty()){
+        if(country.isEmpty()||city.isEmpty()){
             Toast.makeText(getActivity(),EMPTY_FIELDS,Toast.LENGTH_SHORT).show();
             return null;
         }else

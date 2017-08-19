@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 public class Location implements Serializable{
     String mStreet, mCity, mCountry, mState, mNumber;
+    int id;
 
     public Location(String mStreet, String mCity, String mCountry, String mState, String mNumber) {
         this.mStreet = mStreet;
@@ -15,6 +16,14 @@ public class Location implements Serializable{
         this.mCountry = mCountry;
         this.mState = mState;
         this.mNumber = mNumber;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getmStreet() {

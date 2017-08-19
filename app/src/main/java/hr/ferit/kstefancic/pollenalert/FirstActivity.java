@@ -25,7 +25,9 @@ import java.util.Map;
 import hr.ferit.kstefancic.pollenalert.helper.SessionManager;
 import hr.ferit.kstefancic.pollenalert.helper.UserDBHelper;
 
-public class FirstActivity extends AppCompatActivity implements LogInFragment.LoggedInListener, SignUpFragment1.UserCreatedListener, SignUpFragment2.LocationCreatedListener, SignUpFragment3.FinishListener {
+public class FirstActivity extends AppCompatActivity implements LogInFragment.LoggedInListener,
+        SignUpFragment1.UserCreatedListener, SignUpFragment2.LocationCreatedListener,
+        SignUpFragment3.FinishListener, CreateAccFragment.OfflineAccountCreatedListener {
 
     private static final String LOGIN_FRAGMENT = "login";
     private static final String URL_REGISTER = "https://pollenalert.000webhostapp.com/register.php";
@@ -34,6 +36,7 @@ public class FirstActivity extends AppCompatActivity implements LogInFragment.Lo
     private static final String ADDLOCATION_SUCCESS = "Location successfully added to database!";
     public static final String USER = "user";
     private static final String LOGIN_SUCCESS = "You were successfully logged in!";
+    private static final String OFFLINE_ACC_SUCCESS = "You are successfully logged in to your offline account!";
     private User mUser;
     private Location mLocation;
     private ArrayList<Pollen> mPollenList;
@@ -214,6 +217,19 @@ public class FirstActivity extends AppCompatActivity implements LogInFragment.Lo
         Toast.makeText(this,LOGIN_SUCCESS,Toast.LENGTH_SHORT).show();
         mUserDBHelper = new UserDBHelper(this);
         mUserDBHelper.insertUser(user);
+        mSessionManager.setLogin(true);
+        Intent mainIntent = new Intent(FirstActivity.this,MainActivity.class);
+        mainIntent.putExtra(USER,user);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
+    }
+
+    @Override
+    public void onOfflineAccountCreated(User user, Location location) {
+        Toast.makeText(this,OFFLINE_ACC_SUCCESS,Toast.LENGTH_SHORT).show();
+        mUserDBHelper = new UserDBHelper(this);
+        mUserDBHelper.insertUser(user);
+        mUserDBHelper.insertLocation(location);
         mSessionManager.setLogin(true);
         Intent mainIntent = new Intent(FirstActivity.this,MainActivity.class);
         mainIntent.putExtra(USER,user);
