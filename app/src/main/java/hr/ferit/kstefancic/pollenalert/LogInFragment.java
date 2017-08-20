@@ -38,7 +38,7 @@ import java.util.Map;
 public class LogInFragment extends Fragment {
 
     private static final String EMPTY_FIELDS = "Please enter username and password to log in!";
-    private static final String URL_LOGIN = "http://pollenalert.000webhostapp.com/login.php";
+    private static final String URL_LOGIN = "http://pollenalert.000webhostapp.com/login2.php";
 
     public static final String USER = "user";
     private Button btnLogIn;
@@ -125,7 +125,7 @@ public class LogInFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("RESPONSE","Login error: "+ error.getMessage());
-                Toast.makeText(getActivity(),error.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"Error! "+ error.getMessage(),Toast.LENGTH_SHORT).show();
                 hideDialog();
             }
         }){

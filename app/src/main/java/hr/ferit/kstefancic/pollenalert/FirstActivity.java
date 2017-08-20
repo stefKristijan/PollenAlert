@@ -4,8 +4,14 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -18,6 +24,7 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,6 +55,8 @@ public class FirstActivity extends AppCompatActivity implements LogInFragment.Lo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
+        mUserDBHelper = new UserDBHelper(this);
+        mUserDBHelper.deleteUser();
         checkIfLoggedIn();
         setUpFragment();
 
@@ -55,6 +64,7 @@ public class FirstActivity extends AppCompatActivity implements LogInFragment.Lo
 
     private void checkIfLoggedIn() {
         this.mSessionManager = new SessionManager(this);
+        this.mSessionManager.setLogin(false);
         if(this.mSessionManager.isLoggedIn()){
             mUserDBHelper = new UserDBHelper(this);
             mUser = mUserDBHelper.getUser();
@@ -110,6 +120,45 @@ public class FirstActivity extends AppCompatActivity implements LogInFragment.Lo
         fragmentTransaction.commit();
     }
 
+    private String encodeImageToString(Bitmap image){
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        image = scaleImage(image);
+        image.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+        byte [] imgBytes = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(imgBytes,Base64.DEFAULT);
+    }
+
+    private Bitmap scaleImage(Bitmap image) {
+
+        float originalWidth = image.getWidth();
+        float originalHeight = image.getHeight();
+
+        int width= (int) originalWidth, height= (int) originalHeight;
+
+        for(int i=2;height>200;i++){
+            width = (int) (originalWidth/i);
+            height = (int) (originalHeight/i);
+        }
+
+        Bitmap scaledImage = Bitmap.createBitmap(width,height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(scaledImage);
+
+        float scale = width / originalWidth;
+
+        float xTranslation = 0.0f;
+        float yTranslation = (height - originalHeight * scale) / 2.0f;
+
+        Matrix transformation = new Matrix();
+        transformation.postTranslate(xTranslation, yTranslation);
+        transformation.preScale(scale, scale);
+
+        Paint paint = new Paint();
+        paint.setFilterBitmap(true);
+
+        canvas.drawBitmap(image, transformation, paint);
+        return scaledImage;
+    }
+
     private void registerUser() {
         String tag_str_req = "register_req";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_REGISTER, new Response.Listener<String>() {
@@ -147,6 +196,7 @@ public class FirstActivity extends AppCompatActivity implements LogInFragment.Lo
                 params.put("username", mUser.getmUsername());
                 params.put("password",mUser.getmPassword());
                 params.put("email",mUser.getmEmail());
+                params.put("image",encodeImageToString(mUser.getmAvatar()));
 
                 return params;
             }
@@ -236,4 +286,6 @@ public class FirstActivity extends AppCompatActivity implements LogInFragment.Lo
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainIntent);
     }
+
+
 }

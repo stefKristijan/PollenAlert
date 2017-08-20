@@ -1,5 +1,7 @@
 package hr.ferit.kstefancic.pollenalert;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 
 /**
@@ -9,6 +11,7 @@ import java.io.Serializable;
 public class User implements Serializable {
     private String mUsername, mUniqueId, mFullName, mPassword, mEmail;
     private int id;
+    private Bitmap mAvatar;
 
     public User (){
         mUniqueId ="";
@@ -17,11 +20,20 @@ public class User implements Serializable {
         mPassword="";
         id=-1;
         mUsername="";
+        mAvatar=null;
     }
 
     public User(String mUsername, String mEmail) {
         this.mUsername = mUsername;
         this.mEmail = mEmail;
+    }
+
+    public Bitmap getmAvatar() {
+        return mAvatar;
+    }
+
+    public void setmAvatar(Bitmap mAvatar) {
+        this.mAvatar = mAvatar;
     }
 
     public String getmPassword() {
