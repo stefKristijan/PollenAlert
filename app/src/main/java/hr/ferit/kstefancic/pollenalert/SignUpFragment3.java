@@ -36,8 +36,6 @@ import static hr.ferit.kstefancic.pollenalert.LogInFragment.USER;
 
 public class SignUpFragment3 extends Fragment {
 
-    private static final String URL_REGISTER = "http://pollenalert.000webhostapp.com/register.php";
-    private static final String REGISTER_SUCCESS = "Successfully registered, you can now log in to your account!";
     private Button btnBack, btnFinish;
     private FinishListener mFinishListener;
 
