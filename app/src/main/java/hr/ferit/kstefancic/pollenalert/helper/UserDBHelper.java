@@ -37,6 +37,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_USER);
+        db.execSQL(CREATE_TABLE_LOCATION);
     }
 
     @Override
@@ -54,12 +55,6 @@ public class UserDBHelper extends SQLiteOpenHelper {
         contentValues.put(Schema.FULL_NAME,user.getmFullName());
         SQLiteDatabase wdb = this.getWritableDatabase();
         wdb.insert(Schema.TABLE_USER,Schema.USER_ID,contentValues);
-        wdb.close();
-    }
-
-    public void createTableLocation(){
-        SQLiteDatabase wdb = this.getWritableDatabase();
-        wdb.execSQL(CREATE_TABLE_LOCATION);
         wdb.close();
     }
 

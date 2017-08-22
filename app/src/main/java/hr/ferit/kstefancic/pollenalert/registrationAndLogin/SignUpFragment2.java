@@ -1,4 +1,4 @@
-package hr.ferit.kstefancic.pollenalert;
+package hr.ferit.kstefancic.pollenalert.registrationAndLogin;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -10,10 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import static hr.ferit.kstefancic.pollenalert.LogInFragment.USER;
+import hr.ferit.kstefancic.pollenalert.Location;
+import hr.ferit.kstefancic.pollenalert.R;
 
 /**
  * Created by Kristijan on 31.5.2017..
@@ -31,6 +31,12 @@ public class SignUpFragment2 extends Fragment {
         View layout = inflater.inflate(R.layout.sign_up_fragment2,null);
         setUI(layout);
         return layout;
+    }
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     private void setUI(View layout) {

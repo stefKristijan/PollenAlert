@@ -1,9 +1,12 @@
 package hr.ferit.kstefancic.pollenalert.helper;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
@@ -27,8 +30,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private Context mContext;
     private List<String> mHeader;
     private HashMap<String, List<String>> mChildren;
+    private ArrayList<Pollen> mPollenList;
 
-    public ExpandableListAdapter(Context mContext, List<Pollen> mPollenList) {
+    public ExpandableListAdapter(Context mContext, ArrayList<Pollen> mPollenList) {
+        this.mPollenList = mPollenList;
         this.mContext = mContext;
         this.mHeader = new ArrayList<>();
         this.mChildren = new HashMap<>();
@@ -104,6 +109,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return convertView;
     }
 
+    public void setPollen(int index, boolean checked){
+        this.mPollenList.get(index).setChecked(checked);
+        notifyDataSetChanged();
+    }
+
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         if(convertView == null){
@@ -113,6 +123,24 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         TextView tvChildItem = (TextView) convertView.findViewById(R.id.tvElvChildItem);
         tvChildItem.setText(getChild(groupPosition,childPosition).toString());
+        Pollen pollen = null;
+        if(groupPosition==0){
+            pollen = mPollenList.get(childPosition);
+        }
+        else if(groupPosition==1){
+            pollen = mPollenList.get(childPosition+getChildrenCount(0));
+        }
+        else pollen = mPollenList.get(childPosition+getChildrenCount(0)+getChildrenCount(1));
+
+        if(!pollen.isChecked()){
+            convertView.setBackgroundColor(Color.WHITE);
+            tvChildItem.setTextColor(Color.GRAY);
+        }
+        else{
+            convertView.setBackgroundColor(Color.parseColor("#0F83AA"));
+            tvChildItem.setTextColor(Color.WHITE);
+        }
+
         return convertView;
     }
 

@@ -44,4 +44,8 @@
     <string name="tvCreate">You can also create an </string>
     <string name="tvYouCan">You can also</string>
     <string name="tvRegister2"><u><b>Register!</b></u></string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_sign_out">Sign out</string>
 </resources>

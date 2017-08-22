@@ -7,11 +7,21 @@ package hr.ferit.kstefancic.pollenalert;
 public class Pollen {
     private int id;
     private String name, category;
+    private boolean checked;
 
     public Pollen(int id, String name, String category) {
         this.id = id;
         this.name = name;
         this.category = category;
+        this.checked=false;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 
     public int getId() {

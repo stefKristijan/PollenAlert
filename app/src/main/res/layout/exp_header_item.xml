@@ -7,8 +7,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        android:textColor="@color/colorLightGreen"
+        android:textColor="@color/colorWhite"
         android:textStyle="bold"
-        android:id="@+id/tvElvHeaderItem"/>
+        android:id="@+id/tvElvHeaderItem"
+        android:background="@drawable/exp_header_item"
+        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"/>
 
 </LinearLayout>

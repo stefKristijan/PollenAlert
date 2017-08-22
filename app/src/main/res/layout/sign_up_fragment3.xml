@@ -15,9 +15,10 @@
         android:layout_height="wrap_content"
         android:text="@string/tvChooseAllergiesText"
         app:layout_constraintVertical_chainStyle="packed"
-        tools:layout_editor_absoluteX="58dp"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <ImageView
         android:id="@+id/signUpFr3_ivStep1"
@@ -53,26 +54,26 @@
     <Button
         android:id="@+id/signUpFr3_btnBack"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="24dp"
         android:background="@drawable/button_shape"
         android:text="@string/btnBackText"
         android:textColor="@color/colorWhite"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/signUpFr3_ivStep1"
-        android:layout_marginLeft="24dp"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <Button
         android:id="@+id/signUpFr3_btnFinish"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="24dp"
         android:background="@drawable/button_shape"
         android:text="@string/btnFinishText"
         android:textColor="@color/colorWhite"
-        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/signUpFr3_ivStep3"
-        android:layout_marginRight="24dp"
         app:layout_constraintRight_toRightOf="parent" />
 
     <ExpandableListView
@@ -84,5 +85,6 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/signUpFr3_btnBack"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/signUpFr3_tvChooseAllergies" />
+        app:layout_constraintTop_toBottomOf="@+id/signUpFr3_tvChooseAllergies"
+        />
 </android.support.constraint.ConstraintLayout>

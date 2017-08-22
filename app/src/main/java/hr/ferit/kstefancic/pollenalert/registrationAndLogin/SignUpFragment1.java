@@ -1,4 +1,4 @@
-package hr.ferit.kstefancic.pollenalert;
+package hr.ferit.kstefancic.pollenalert.registrationAndLogin;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -6,11 +6,10 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.LoginFilter;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +21,12 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import hr.ferit.kstefancic.pollenalert.R;
+import hr.ferit.kstefancic.pollenalert.User;
+
 import static android.app.Activity.RESULT_OK;
-import static hr.ferit.kstefancic.pollenalert.LogInFragment.USER;
 
 /**
  * Created by Kristijan on 31.5.2017..
@@ -56,6 +53,7 @@ public class SignUpFragment1 extends Fragment {
 
     private void setUI(View layout) {
         this.ivAvatar = (ImageView) layout.findViewById(R.id.signUpFr1_ivUser);
+        this.avatar = ((BitmapDrawable) ivAvatar.getDrawable()).getBitmap();
         this.etConfirmPassword = (EditText) layout.findViewById(R.id.signUpFr1_etConfirmPassword);
         this.etPassword = (EditText) layout.findViewById(R.id.signUpFr1_etPassword);
         this.etEmail = (EditText) layout.findViewById(R.id.signUpFr1_etEmail);

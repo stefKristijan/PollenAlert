@@ -1,4 +1,4 @@
-package hr.ferit.kstefancic.pollenalert;
+package hr.ferit.kstefancic.pollenalert.registrationAndLogin;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -29,6 +28,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import hr.ferit.kstefancic.pollenalert.AppController;
+import hr.ferit.kstefancic.pollenalert.Location;
+import hr.ferit.kstefancic.pollenalert.MainActivity;
+import hr.ferit.kstefancic.pollenalert.Pollen;
+import hr.ferit.kstefancic.pollenalert.R;
+import hr.ferit.kstefancic.pollenalert.User;
 import hr.ferit.kstefancic.pollenalert.helper.SessionManager;
 import hr.ferit.kstefancic.pollenalert.helper.UserDBHelper;
 
@@ -44,6 +49,8 @@ public class FirstActivity extends AppCompatActivity implements LogInFragment.Lo
     public static final String USER = "user";
     private static final String LOGIN_SUCCESS = "You were successfully logged in!";
     private static final String OFFLINE_ACC_SUCCESS = "You are successfully logged in to your offline account!";
+    private static final String URL_ADDPOLLEN = "https://pollenalert.000webhostapp.com/insert_pollen.php";
+    private static final String ADDPOLLEN_SUCCESS = "Allergie information successfully added!";
     private User mUser;
     private Location mLocation;
     private ArrayList<Pollen> mPollenList;
@@ -55,8 +62,6 @@ public class FirstActivity extends AppCompatActivity implements LogInFragment.Lo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
-        mUserDBHelper = new UserDBHelper(this);
-        mUserDBHelper.deleteUser();
         checkIfLoggedIn();
         setUpFragment();
 
@@ -64,7 +69,6 @@ public class FirstActivity extends AppCompatActivity implements LogInFragment.Lo
 
     private void checkIfLoggedIn() {
         this.mSessionManager = new SessionManager(this);
-        this.mSessionManager.setLogin(false);
         if(this.mSessionManager.isLoggedIn()){
             mUserDBHelper = new UserDBHelper(this);
             mUser = mUserDBHelper.getUser();
@@ -105,7 +109,13 @@ public class FirstActivity extends AppCompatActivity implements LogInFragment.Lo
 
     @Override
     public void onFinish(ArrayList<Pollen> pollenList) {
-        //mPollenList = pollenList;
+        this.mPollenList = new ArrayList<>();
+        this.mPollenList = pollenList;
+        String pollens="";
+        for(int i=0;i<mPollenList.size();i++){
+            pollens+=String.valueOf(mPollenList.get(i).getId())+" ";
+        }
+        Toast.makeText(this,pollens,Toast.LENGTH_SHORT).show();
         register();
     }
 
@@ -212,19 +222,19 @@ public class FirstActivity extends AppCompatActivity implements LogInFragment.Lo
             @Override
             public void onResponse(String response) {
                 Log.d("LOCATION_RESPONSE",response.toString());
-                try{
+               /* try{
                     JSONObject jsonObject = new JSONObject(response);
                     boolean error = jsonObject.getBoolean("error");
                     if(!error){
                         Toast.makeText(FirstActivity.this, ADDLOCATION_SUCCESS,Toast.LENGTH_SHORT).show();
-                        setUpFragment();
+                        addPollenToDatabase();
                     }
                     else{
                         Toast.makeText(FirstActivity.this,jsonObject.getString("error_msg"),Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
+                }*/
                 hideDialog();
             }
         }, new Response.ErrorListener() {
@@ -243,6 +253,57 @@ public class FirstActivity extends AppCompatActivity implements LogInFragment.Lo
                 params.put("city",mLocation.getmCity());
                 params.put("state",mLocation.getmState());
                 params.put("country",mLocation.getmCountry());
+                params.put("user_id",String.valueOf(mUser.getId()));
+                return params;
+            }
+        };
+        AppController.getInstance().addToRequestQueue(stringRequest,tag_str_req);
+
+    }
+
+    private void addPollenToDatabase() {
+        showDialog("Adding your allergies");
+        String tag_str_req = "addPollen_req";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_ADDPOLLEN, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("POLLEN_RESPONSE",response.toString());
+               /* boolean error = false;
+                try{
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jArray = jsonObject.getJSONArray("responses");
+                    for(int i=0;i<jArray.length();i++) {
+                        if (!jArray.getJSONObject(i).getBoolean("responses")) {
+                            error=true;
+                            break;
+                        }
+                    }
+                    if(!error){
+                        Toast.makeText(FirstActivity.this, ADDPOLLEN_SUCCESS,Toast.LENGTH_SHORT).show();
+                        setUpFragment();
+                    }
+                    else{
+                        Toast.makeText(FirstActivity.this,jsonObject.getString("error_msg"),Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }*/
+                hideDialog();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("RESPONSE","Pollen insert error: "+ error.getMessage());
+                Toast.makeText(FirstActivity.this,error.getMessage(),Toast.LENGTH_SHORT).show();
+                hideDialog();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String,String>();
+                for(int i=0; i<mPollenList.size();i++){
+                    params.put("pollen_id["+i+"]",String.valueOf(mPollenList.get(i).getId()));
+                }
                 params.put("user_id",String.valueOf(mUser.getId()));
                 return params;
             }

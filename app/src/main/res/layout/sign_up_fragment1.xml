@@ -12,7 +12,7 @@
         android:id="@+id/signUpFr1_ivUser"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        app:srcCompat="@mipmap/ic_launcher"
+        android:src="@mipmap/avatar"
         app:layout_constraintTop_toTopOf="@+id/signUpFr1_etUsername"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="@+id/signUpFr1_btnBrowse"

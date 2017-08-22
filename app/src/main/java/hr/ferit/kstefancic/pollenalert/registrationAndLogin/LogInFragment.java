@@ -1,14 +1,11 @@
-package hr.ferit.kstefancic.pollenalert;
+package hr.ferit.kstefancic.pollenalert.registrationAndLogin;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.StringRes;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,9 +24,12 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+
+import hr.ferit.kstefancic.pollenalert.AppController;
+import hr.ferit.kstefancic.pollenalert.R;
+import hr.ferit.kstefancic.pollenalert.User;
 
 /**
  * Created by Kristijan on 31.5.2017..
@@ -102,7 +102,6 @@ public class LogInFragment extends Fragment {
 
         this.etPassword = (EditText) layout.findViewById(R.id.logInFr_etPassword);
         this.etUsername = (EditText) layout.findViewById(R.id.logInFr_etUsername);
-
 
     }
 

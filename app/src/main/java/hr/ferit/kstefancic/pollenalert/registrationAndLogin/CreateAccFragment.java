@@ -1,19 +1,21 @@
-package hr.ferit.kstefancic.pollenalert;
+package hr.ferit.kstefancic.pollenalert.registrationAndLogin;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import hr.ferit.kstefancic.pollenalert.Location;
+import hr.ferit.kstefancic.pollenalert.R;
+import hr.ferit.kstefancic.pollenalert.User;
 
 /**
  * Created by Kristijan on 31.5.2017..
