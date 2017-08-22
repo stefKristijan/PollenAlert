@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,9 +33,12 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.GZIPInputStream;
+
+import hr.ferit.kstefancic.pollenalert.helper.AccuCity;
 
 /**
  * Created by Kristijan on 22.8.2017..
@@ -46,7 +50,8 @@ public class LocationPollenFragment extends Fragment{
     private AutoCompleteTextView atvLocation;
     private CardView cvPollen;
     private ProgressDialog progressDialog;
-    private String mLocationCode;
+    private ArrayList<String> mCityStrings;
+    private ArrayList<AccuCity> mAccuCities;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,6 +67,8 @@ public class LocationPollenFragment extends Fragment{
     }
 
     private void setUpUI(View layout) {
+        this.mCityStrings = new ArrayList<>();
+        this.mAccuCities = new ArrayList<>();
         this.ibSearch = (ImageButton) layout.findViewById(R.id.frLPibSearch);
         this.ibSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,10 +147,11 @@ public class LocationPollenFragment extends Fragment{
                         Log.d("Error.Response",error.toString());
                         hideDialog();
                         parseJSON(error.toString());
-                        if(mLocationCode==null){
-                            Toast.makeText(getActivity(),"Something went wrong.",Toast.LENGTH_SHORT).show();
+                        if(!mCityStrings.isEmpty()){
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_dropdown_item_1line,mCityStrings);
+                            atvLocation.setAdapter(adapter);
                         }else
-                            Toast.makeText(getActivity(),mLocationCode,Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(),"Something went wrong, please try again!",Toast.LENGTH_SHORT).show();
                     }
                 });
         AppController.getInstance().addToRequestQueue(getRequest,tag_str_req);
@@ -157,11 +165,34 @@ public class LocationPollenFragment extends Fragment{
         response = "{\"city\":"+response+"}";
         JSONObject jObj = null;
         JSONArray jArray = null;
+        JSONObject joAdmin = null;
+        JSONObject joGeoPosition =  null;
+        JSONObject joRegion = null;
+        JSONObject joCountry = null;
         try {
             jObj = new JSONObject(response);
             jArray = jObj.getJSONArray("city");
+            String city, adminArea, country, region, key;
+            double latitude, longitude;
             for (int i = 0; i < jArray.length(); i++) {
                 JSONObject jo = jArray.getJSONObject(i);
+                city = jo.getString("LocalizedName");
+                key = jo.getString("Key");
+                joAdmin = new JSONObject(jo.getString("AdministrativeArea"));
+                adminArea = joAdmin.getString("LocalizedName");
+                joCountry = new JSONObject(jo.getString("Country"));
+                country = joCountry.getString("LocalizedName");
+                joGeoPosition = new JSONObject(jo.getString("GeoPosition"));
+                latitude = joGeoPosition.getDouble("Latitude");
+                longitude = joGeoPosition.getDouble("Longitude");
+                joRegion = new JSONObject(jo.getString("Region"));
+                region = joRegion.getString("LocalizedName");
+                AccuCity accuCity = new AccuCity(city,key,country,adminArea,region);
+                accuCity.setmLatitude((float) latitude);
+                accuCity.setmLongitude((float) longitude);
+                mAccuCities.add(accuCity);
+                mCityStrings.add(accuCity.toString());
+                Toast.makeText(getActivity(),accuCity.toString(),Toast.LENGTH_SHORT).show();
             }
         } catch (JSONException e) {
             e.printStackTrace();
