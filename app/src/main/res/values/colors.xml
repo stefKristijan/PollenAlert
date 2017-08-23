@@ -5,9 +5,16 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorLightGreen">#86B81A</color>
+    <color name="colorLightGreenOpacity">#E086B81A</color>
     <color name="colorGreen">#80B214</color>
     <color name="colorLighterBlue">#0F83AA</color>
     <color name="btnStartColor">#86B81A</color>
     <color name="btnCenterColor">#80B214</color>
     <color name="btnEndColor">#BFFF36</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="colorLowPollenText">#007000</color>
+    <color name="colorTodayPollenCount">#EEE</color>
+    <color name="colorGoodPollenText">#0040DF</color>
+    <color name="colorModeratePollenText">#EC6605</color>
+    <color name="colorHighPollenText">#C80000</color>
 </resources>

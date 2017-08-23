@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     };
     private SessionManager mSessionManager;
     private UserDBHelper mUserDBHelper;
-    public static final String ApiKey ="gP4M9GSljRr7BrbSVA22r447bUnhRQXL"; //"eIswG7hdAtgPUincnaJgb8SuUaQzS45R";
+    public static final String ApiKey ="eIswG7hdAtgPUincnaJgb8SuUaQzS45R"; //"gP4M9GSljRr7BrbSVA22r447bUnhRQXL";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/frLPcvPollenData"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+
+        <ImageView
+            android:id="@+id/ivThumbnail"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="24dp"
+            android:src="@mipmap/weed"
+            android:scaleType="fitCenter"
+            />
+
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/card_view_tv_pollen"
+            android:textColor="@android:color/white"
+            android:gravity="left|top"
+            android:textSize="20sp"
+            android:padding="5dp"
+            android:textStyle="bold"/>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/ivThumbnail">
+
+            <TableRow
+                android:background="@color/colorTodayPollenCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+                <RelativeLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/frLPrvpiFirstDate"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        />
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:scaleType="fitCenter"
+                        android:src="@mipmap/pollen_low"
+                        android:layout_below="@+id/frLPrvpiFirstDate"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="8dp"
+                        android:id="@+id/frLPrvpiivValue"
+                        />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/frLPrvpiFirstDate"
+                        android:layout_toRightOf="@+id/frLPrvpiivValue"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginLeft="8dp"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:id="@+id/frLPrvpitvAmount"
+                        android:textColor="@color/colorLowPollenText"
+                        android:gravity="center"
+                        />
+
+                </RelativeLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:background="@drawable/table_pollen_background">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/frLPrvpiSecondDate"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:scaleType="fitCenter"
+                        android:src="@mipmap/pollen_low"
+                        android:layout_below="@+id/frLPrvpiSecondDate"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="8dp"
+                        android:id="@+id/frLPrvpiivValue2"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/frLPrvpiivValue2"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:id="@+id/frLPrvpitvAmount2"
+                        android:textColor="@color/colorLowPollenText"
+                        android:gravity="center"
+                        />
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:background="@drawable/table_pollen_background">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/frLPrvpiThirdDate"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:scaleType="fitCenter"
+                        android:src="@mipmap/pollen_low"
+                        android:layout_below="@+id/frLPrvpiThirdDate"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="8dp"
+                        android:id="@+id/frLPrvpiivValue3"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/frLPrvpiivValue3"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:id="@+id/frLPrvpitvAmount3"
+                        android:textColor="@color/colorLowPollenText"
+                        android:gravity="center"
+                        />
+
+
+                </RelativeLayout>
+
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-2dp"
+                >
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:background="@drawable/table_pollen_background">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/frLPrvpiFourthDate"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:scaleType="fitCenter"
+                        android:src="@mipmap/pollen_low"
+                        android:layout_below="@+id/frLPrvpiFourthDate"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="8dp"
+                        android:id="@+id/frLPrvpiivValue4"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/frLPrvpiivValue4"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:id="@+id/frLPrvpitvAmount4"
+                        android:textColor="@color/colorLowPollenText"
+                        android:gravity="center"
+                        />
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:background="@drawable/table_pollen_background">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/frLPrvpiFifthDate"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:scaleType="fitCenter"
+                        android:src="@mipmap/pollen_low"
+                        android:layout_below="@+id/frLPrvpiFifthDate"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="8dp"
+                        android:id="@+id/frLPrvpiivValue5"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/frLPrvpiivValue5"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:id="@+id/frLPrvpitvAmount5"
+                        android:textColor="@color/colorLowPollenText"
+                        android:gravity="center"
+                        />
+
+
+                </RelativeLayout>
+
+
+            </TableRow>
+
+        </TableLayout>
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

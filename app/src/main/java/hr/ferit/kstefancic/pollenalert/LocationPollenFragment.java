@@ -1,50 +1,38 @@
 package hr.ferit.kstefancic.pollenalert;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Entity;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
-import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.zip.GZIPInputStream;
 
 import hr.ferit.kstefancic.pollenalert.helper.AccuCity;
-import hr.ferit.kstefancic.pollenalert.helper.AccuPollen;
+import hr.ferit.kstefancic.pollenalert.helper.AccuPollenForecast;
+import hr.ferit.kstefancic.pollenalert.helper.PollenCountAdapter;
 
 /**
  * Created by Kristijan on 22.8.2017..
@@ -52,13 +40,19 @@ import hr.ferit.kstefancic.pollenalert.helper.AccuPollen;
 
 public class LocationPollenFragment extends Fragment{
 
+
     private ImageButton ibSearch, ibMyLocation;
     private AutoCompleteTextView atvLocation;
     private CardView cvPollen;
     private ProgressDialog progressDialog;
     private ArrayList<String> mCityStrings;
     private ArrayList<AccuCity> mAccuCities;
-    private ArrayList<AccuPollen> mAccuPollens;
+    private ArrayList<AccuPollenForecast> mAccuPollens;
+    private RecyclerView mRvPollenData;
+    private PollenCountAdapter mPollenCountAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private RecyclerView.ItemDecoration mItemDecoration;
+    public static final int GRASS =0, MOLD = 1, WEED =2, TREE=3;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,6 +68,7 @@ public class LocationPollenFragment extends Fragment{
     }
 
     private void setUpUI(View layout) {
+        this.mRvPollenData = (RecyclerView) layout.findViewById(R.id.frLPrvPollenData);
         this.mAccuPollens = new ArrayList<>();
         this.mCityStrings = new ArrayList<>();
         this.mAccuCities = new ArrayList<>();
@@ -86,7 +81,6 @@ public class LocationPollenFragment extends Fragment{
         });
         this.ibMyLocation = (ImageButton) layout.findViewById(R.id.frLPibCurrentLocation);
         this.atvLocation = (AutoCompleteTextView) layout.findViewById(R.id.frLPaetLocation);
-        this.cvPollen = (CardView) layout.findViewById(R.id.frLPcvPollen);
     }
 
     private void getLocationCode() {
@@ -185,14 +179,16 @@ public class LocationPollenFragment extends Fragment{
     private void getPollenData(String locationKey) {
         showDialog();
         String tag_str_req = "req_pollen_code";
-        String url = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/"+locationKey+"?apikey=gP4M9GSljRr7BrbSVA22r447bUnhRQXL&details=true";
+        String url = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/"+locationKey+"?apikey="+MainActivity.ApiKey+"&details=true";
         JsonObjectRequest getRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("Response",response.toString());
+                        mAccuPollens.clear();
                         parseJSONPollenData(response);
+                        setRecyclerView();
                         hideDialog();
                     }
                 }, new Response.ErrorListener() {
@@ -220,36 +216,57 @@ public class LocationPollenFragment extends Fragment{
         AppController.getInstance().addToRequestQueue(getRequest,tag_str_req);
     }
 
+    private void setRecyclerView() {
+        Context context = getActivity();
+        this.mRvPollenData.setAdapter(null);
+        this.mPollenCountAdapter = new PollenCountAdapter(mAccuPollens,context);
+        this.mLayoutManager = new LinearLayoutManager(context);
+        this.mItemDecoration = new DividerItemDecoration(context,DividerItemDecoration.VERTICAL);
+        this.mRvPollenData.addItemDecoration(this.mItemDecoration);
+        this.mRvPollenData.setLayoutManager(mLayoutManager);
+        this.mRvPollenData.setAdapter(mPollenCountAdapter);
+    }
+
     private void parseJSONPollenData(JSONObject jObj) {
         JSONObject joDailyForecast=null, joGrass = null, joMold=null, joWeeds=null, joTrees=null;
         JSONArray jsonDailyForecasts, jsonPollen;
-        AccuPollen accuPollen = new AccuPollen();
+        AccuPollenForecast grassForecast = new AccuPollenForecast();
+        AccuPollenForecast moldForecast = new AccuPollenForecast();
+        AccuPollenForecast weedForecast = new AccuPollenForecast();
+        AccuPollenForecast treeForecast = new AccuPollenForecast();
         try {
             jsonDailyForecasts= jObj.getJSONArray("DailyForecasts");
             for(int i=0;i<5;i++) {
                 joDailyForecast = jsonDailyForecasts.getJSONObject(i);
                 jsonPollen = joDailyForecast.getJSONArray("AirAndPollen");
                 joGrass = jsonPollen.getJSONObject(1);
-                accuPollen.addValue(joGrass.getInt("Value"), accuPollen.getGRASS());
-                accuPollen.addCategory(joGrass.getString("Category"), accuPollen.getGRASS());
-                accuPollen.addCategoryValue(joGrass.getInt("CategoryValue"), accuPollen.getGRASS());
+                grassForecast.addValue(joGrass.getInt("Value"), i);
+                grassForecast.addCategory(joGrass.getString("Category"),i);
+                grassForecast.setmName(joGrass.getString("Name"));
+                //accuPollen.addCategoryValue(joGrass.getInt("CategoryValue"), accuPollen.getGRASS());
                 joMold = jsonPollen.getJSONObject(2);
-                accuPollen.addValue(joMold.getInt("Value"), accuPollen.getMOLD());
-                accuPollen.addCategory(joMold.getString("Category"), accuPollen.getMOLD());
-                accuPollen.addCategoryValue(joMold.getInt("CategoryValue"), accuPollen.getMOLD());
+                moldForecast.addValue(joMold.getInt("Value"), i);
+                moldForecast.addCategory(joMold.getString("Category"), i);
+                moldForecast.setmName(joMold.getString("Name"));
+                //accuPollen.addCategoryValue(joMold.getInt("CategoryValue"), accuPollen.getMOLD());
                 joWeeds = jsonPollen.getJSONObject(3);
-                accuPollen.addValue(joWeeds.getInt("Value"), accuPollen.getWEED());
-                accuPollen.addCategory(joWeeds.getString("Category"), accuPollen.getWEED());
-                accuPollen.addCategoryValue(joWeeds.getInt("CategoryValue"), accuPollen.getWEED());
+                weedForecast.addValue(joWeeds.getInt("Value"), i);
+                weedForecast.addCategory(joWeeds.getString("Category"), i);
+                weedForecast.setmName(joWeeds.getString("Name"));
+               // accuPollen.addCategoryValue(joWeeds.getInt("CategoryValue"), accuPollen.getWEED());
                 joTrees = jsonPollen.getJSONObject(4);
-                accuPollen.addValue(joTrees.getInt("Value"), accuPollen.getTREE());
-                accuPollen.addCategory(joTrees.getString("Category"), accuPollen.getTREE());
-                accuPollen.addCategoryValue(joTrees.getInt("CategoryValue"), accuPollen.getTREE());
-                mAccuPollens.add(accuPollen);
+                treeForecast.addValue(joTrees.getInt("Value"), i);
+                treeForecast.addCategory(joTrees.getString("Category"), i);
+                treeForecast.setmName(joTrees.getString("Name"));
+               // accuPollen.addCategoryValue(joTrees.getInt("CategoryValue"), accuPollen.getTREE());
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        mAccuPollens.add(grassForecast);
+        mAccuPollens.add(moldForecast);
+        mAccuPollens.add(weedForecast);
+        mAccuPollens.add(treeForecast);
     }
 
     private void parseJSONCity(String response) {
