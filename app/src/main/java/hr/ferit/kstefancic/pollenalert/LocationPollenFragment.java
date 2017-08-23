@@ -1,14 +1,19 @@
 package hr.ferit.kstefancic.pollenalert;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Entity;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -39,6 +44,7 @@ import java.util.Map;
 import java.util.zip.GZIPInputStream;
 
 import hr.ferit.kstefancic.pollenalert.helper.AccuCity;
+import hr.ferit.kstefancic.pollenalert.helper.AccuPollen;
 
 /**
  * Created by Kristijan on 22.8.2017..
@@ -52,6 +58,7 @@ public class LocationPollenFragment extends Fragment{
     private ProgressDialog progressDialog;
     private ArrayList<String> mCityStrings;
     private ArrayList<AccuCity> mAccuCities;
+    private ArrayList<AccuPollen> mAccuPollens;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,6 +74,7 @@ public class LocationPollenFragment extends Fragment{
     }
 
     private void setUpUI(View layout) {
+        this.mAccuPollens = new ArrayList<>();
         this.mCityStrings = new ArrayList<>();
         this.mAccuCities = new ArrayList<>();
         this.ibSearch = (ImageButton) layout.findViewById(R.id.frLPibSearch);
@@ -146,10 +154,11 @@ public class LocationPollenFragment extends Fragment{
                     public void onErrorResponse(VolleyError error) {
                         Log.d("Error.Response",error.toString());
                         hideDialog();
-                        parseJSON(error.toString());
+                        mCityStrings.clear();
+                        mAccuCities.clear();
+                        parseJSONCity(error.toString());
                         if(!mCityStrings.isEmpty()){
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_dropdown_item_1line,mCityStrings);
-                            atvLocation.setAdapter(adapter);
+                            showListDialog();
                         }else
                             Toast.makeText(getActivity(),"Something went wrong, please try again!",Toast.LENGTH_SHORT).show();
                     }
@@ -157,7 +166,93 @@ public class LocationPollenFragment extends Fragment{
         AppController.getInstance().addToRequestQueue(getRequest,tag_str_req);
     }
 
-    private void parseJSON(String response) {
+    private void showListDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Pick one city");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,mCityStrings);
+        builder.setSingleChoiceItems(adapter, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                atvLocation.setText(mCityStrings.get(which));
+                getPollenData(mAccuCities.get(which).getmKey());
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+
+    private void getPollenData(String locationKey) {
+        showDialog();
+        String tag_str_req = "req_pollen_code";
+        String url = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/"+locationKey+"?apikey=gP4M9GSljRr7BrbSVA22r447bUnhRQXL&details=true";
+        JsonObjectRequest getRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("Response",response.toString());
+                        parseJSONPollenData(response);
+                        hideDialog();
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error.Response",error.toString());
+                        hideDialog();
+                    }
+                });/*
+        StringRequest getRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("Response",response.toString());
+                parseJSONPollenData(response);
+                hideDialog();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Error.Response",error.toString());
+                hideDialog();
+            }
+        });*/
+        AppController.getInstance().addToRequestQueue(getRequest,tag_str_req);
+    }
+
+    private void parseJSONPollenData(JSONObject jObj) {
+        JSONObject joDailyForecast=null, joGrass = null, joMold=null, joWeeds=null, joTrees=null;
+        JSONArray jsonDailyForecasts, jsonPollen;
+        AccuPollen accuPollen = new AccuPollen();
+        try {
+            jsonDailyForecasts= jObj.getJSONArray("DailyForecasts");
+            for(int i=0;i<5;i++) {
+                joDailyForecast = jsonDailyForecasts.getJSONObject(i);
+                jsonPollen = joDailyForecast.getJSONArray("AirAndPollen");
+                joGrass = jsonPollen.getJSONObject(1);
+                accuPollen.addValue(joGrass.getInt("Value"), accuPollen.getGRASS());
+                accuPollen.addCategory(joGrass.getString("Category"), accuPollen.getGRASS());
+                accuPollen.addCategoryValue(joGrass.getInt("CategoryValue"), accuPollen.getGRASS());
+                joMold = jsonPollen.getJSONObject(2);
+                accuPollen.addValue(joMold.getInt("Value"), accuPollen.getMOLD());
+                accuPollen.addCategory(joMold.getString("Category"), accuPollen.getMOLD());
+                accuPollen.addCategoryValue(joMold.getInt("CategoryValue"), accuPollen.getMOLD());
+                joWeeds = jsonPollen.getJSONObject(3);
+                accuPollen.addValue(joWeeds.getInt("Value"), accuPollen.getWEED());
+                accuPollen.addCategory(joWeeds.getString("Category"), accuPollen.getWEED());
+                accuPollen.addCategoryValue(joWeeds.getInt("CategoryValue"), accuPollen.getWEED());
+                joTrees = jsonPollen.getJSONObject(4);
+                accuPollen.addValue(joTrees.getInt("Value"), accuPollen.getTREE());
+                accuPollen.addCategory(joTrees.getString("Category"), accuPollen.getTREE());
+                accuPollen.addCategoryValue(joTrees.getInt("CategoryValue"), accuPollen.getTREE());
+                mAccuPollens.add(accuPollen);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void parseJSONCity(String response) {
         //prepravljanje odziva (javlja se greška da se ne može parsirati jer odziv nije dobrog formata,
         //pa je potrebno "urediti" JSON string, tj obrisati opis greške i formatirati string
         response = response.replace("com.android.volley.ParseError: org.json.JSONException: Value","");
@@ -192,7 +287,6 @@ public class LocationPollenFragment extends Fragment{
                 accuCity.setmLongitude((float) longitude);
                 mAccuCities.add(accuCity);
                 mCityStrings.add(accuCity.toString());
-                Toast.makeText(getActivity(),accuCity.toString(),Toast.LENGTH_SHORT).show();
             }
         } catch (JSONException e) {
             e.printStackTrace();

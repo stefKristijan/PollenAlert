@@ -3,6 +3,7 @@ package hr.ferit.kstefancic.pollenalert;
 import android.graphics.Bitmap;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by Kristijan on 18.8.2017..
@@ -12,6 +13,8 @@ public class User implements Serializable {
     private String mUsername, mUniqueId, mFullName, mPassword, mEmail;
     private int id;
     private Bitmap mAvatar;
+    private ArrayList<Location> mLocations;
+    private ArrayList<Pollen> mAllergies;
 
     public User (){
         mUniqueId ="";
