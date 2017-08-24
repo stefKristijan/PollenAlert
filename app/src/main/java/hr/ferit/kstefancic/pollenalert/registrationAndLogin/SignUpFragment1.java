@@ -10,6 +10,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ public class SignUpFragment1 extends Fragment {
     private static final String EMPTY_FIELDS = "Please fill all required fields to continue!";
     private static final String PASSWORD_DISMATCH = "Passwords don't match!";
     private static final int IMG_REQ = 10;
+    private static final String EMAIL_NOT_VALID = "Please use a valid e-mail pattern!";
     private Button btnNext, btnBrowseImage;
     private EditText etUsername, etPassword, etConfirmPassword, etEmail;
     private TextView tvLogIn, tvCreateAcc;
@@ -156,6 +158,9 @@ public class SignUpFragment1 extends Fragment {
         }
         else if(!password.equals(confirmPass)){
             Toast.makeText(getActivity(),PASSWORD_DISMATCH,Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(getActivity(),EMAIL_NOT_VALID,Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

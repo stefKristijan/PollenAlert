@@ -107,7 +107,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/frLPrvpiSecondDate"
                         android:gravity="center"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         />
 
                     <ImageView
@@ -145,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/frLPrvpiThirdDate"
                         android:gravity="center"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         />
 
                     <ImageView
@@ -193,7 +193,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/frLPrvpiFourthDate"
                         android:gravity="center"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         />
 
                     <ImageView
@@ -231,7 +231,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/frLPrvpiFifthDate"
                         android:gravity="center"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         />
 
                     <ImageView
