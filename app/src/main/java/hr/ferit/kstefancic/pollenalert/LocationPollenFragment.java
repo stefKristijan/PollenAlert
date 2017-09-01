@@ -75,6 +75,7 @@ public class LocationPollenFragment extends Fragment {
     }
 
     private void setUpUI(View layout) {
+        if(hasLocationPermission()) getLastKnownLocation();
         this.mRvPollenData = (RecyclerView) layout.findViewById(R.id.frLPrvPollenData);
         this.mAccuPollens = new ArrayList<>();
         this.mCityStrings = new ArrayList<>();
@@ -97,11 +98,7 @@ public class LocationPollenFragment extends Fragment {
                         Criteria criteria = new Criteria();
                         criteria.setAccuracy(Criteria.ACCURACY_FINE);
                         String locationProvider = mLocationManager.getBestProvider(criteria, true);
-                        Location location = mLocationManager.getLastKnownLocation(locationProvider);
-                        if(location != null){
-                            searchForLocation(location);
-                        }
-                        else mLocationManager.requestLocationUpdates(locationProvider, 0, 0, mLocationListener);
+                       mLocationManager.requestLocationUpdates(locationProvider, 0, 0, mLocationListener);
                     } else {
                         Toast.makeText(getActivity(), GPS_DISABLED, Toast.LENGTH_SHORT).show();
                     }
@@ -110,6 +107,18 @@ public class LocationPollenFragment extends Fragment {
         });
         this.atvLocation = (AutoCompleteTextView) layout.findViewById(R.id.frLPaetLocation);
     }
+
+    private void getLastKnownLocation() {
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        mLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        String locationProvider = mLocationManager.getBestProvider(criteria, true);
+        Location location = mLocationManager.getLastKnownLocation(locationProvider);
+        if(location != null){
+            searchForLocation(location);
+        }
+    }
+
     private boolean hasLocationPermission(){
         String LocationPermission = android.Manifest.permission.ACCESS_FINE_LOCATION;
         int status = ContextCompat.checkSelfPermission(getActivity(),LocationPermission);

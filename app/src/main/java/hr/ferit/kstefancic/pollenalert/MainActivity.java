@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
             R.mipmap.settings_icon
     };
     private SessionManager mSessionManager;
-    private UserDBHelper mUserDBHelper;
     public static final String ApiKey ="eIswG7hdAtgPUincnaJgb8SuUaQzS45R"; //"gP4M9GSljRr7BrbSVA22r447bUnhRQXL";
 
     @Override
@@ -69,13 +68,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setUpUI();
         mUser = (User) getIntent().getSerializableExtra(FirstActivity.USER);
+        setUpUI();
     }
 
     private void setUpUI() {
         this.mSessionManager = new SessionManager(this);
-        this.mUserDBHelper = new UserDBHelper(this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -93,9 +91,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpViewPager() {
+        Log.d("viewPages",mUser.getmUsername()+" "+mUser.getmAvatarPath());
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        Fragment userNewsFr = UserNewsFragment.newInstance(mUser);
         adapter.addFragment(new LocationPollenFragment());
-        adapter.addFragment(new UserNewsFragment());
+        adapter.addFragment(userNewsFr);
         adapter.addFragment(new MyDiaryFragment());
         adapter.addFragment(new SettingsFragment());
         mViewPager.setAdapter(adapter);
@@ -232,8 +232,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void signOut() {
         this.mSessionManager.setLogin(false);
-        //this.mUserDBHelper.deleteLocations();
-        this.mUserDBHelper.deleteUser();
+        //UserDBHelper.getInstance(this).deleteLocations();
+        UserDBHelper.getInstance(this).deleteUser();
         Intent loginIntent = new Intent(MainActivity.this,FirstActivity.class);
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginIntent);

@@ -56,7 +56,6 @@ public class FirstActivity extends AppCompatActivity implements LogInFragment.Lo
     private ArrayList<Pollen> mPollenList;
     private ProgressDialog progressDialog;
     private SessionManager mSessionManager;
-    private UserDBHelper mUserDBHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +69,7 @@ public class FirstActivity extends AppCompatActivity implements LogInFragment.Lo
     private void checkIfLoggedIn() {
         this.mSessionManager = new SessionManager(this);
         if(this.mSessionManager.isLoggedIn()){
-            mUserDBHelper = new UserDBHelper(this);
-            mUser = mUserDBHelper.getUser();
+            mUser = UserDBHelper.getInstance(this).getUser();
             Intent mainIntent = new Intent(FirstActivity.this,MainActivity.class);
             mainIntent.putExtra(USER, mUser);
             mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -326,8 +324,7 @@ public class FirstActivity extends AppCompatActivity implements LogInFragment.Lo
     @Override
     public void onLoggedIn(User user) {
         Toast.makeText(this,LOGIN_SUCCESS,Toast.LENGTH_SHORT).show();
-        mUserDBHelper = new UserDBHelper(this);
-        mUserDBHelper.insertUser(user);
+        UserDBHelper.getInstance(this).insertUser(user);
         mSessionManager.setLogin(true);
         Intent mainIntent = new Intent(FirstActivity.this,MainActivity.class);
         mainIntent.putExtra(USER,user);
@@ -338,9 +335,8 @@ public class FirstActivity extends AppCompatActivity implements LogInFragment.Lo
     @Override
     public void onOfflineAccountCreated(User user, Location location) {
         Toast.makeText(this,OFFLINE_ACC_SUCCESS,Toast.LENGTH_SHORT).show();
-        mUserDBHelper = new UserDBHelper(this);
-        mUserDBHelper.insertUser(user);
-        mUserDBHelper.insertLocation(location);
+        UserDBHelper.getInstance(this).insertUser(user);
+        //mUserDBHelper.getInstance(this).insertLocation(location);
         mSessionManager.setLogin(true);
         Intent mainIntent = new Intent(FirstActivity.this,MainActivity.class);
         mainIntent.putExtra(USER,user);

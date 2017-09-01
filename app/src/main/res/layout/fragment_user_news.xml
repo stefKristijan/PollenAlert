@@ -1,6 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/frNewsivAvatar"
+        android:src="@mipmap/user"
+        android:layout_margin="8dp"/>
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/frNewstvUser"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_toRightOf="@id/frNewsivAvatar"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:text="User"/>
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/frNewstvLocation"
+        android:layout_below="@id/frNewstvUser"
+        android:layout_toRightOf="@id/frNewsivAvatar"
+        android:text="lcation"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="2"
+        android:layout_below="@id/frNewsivAvatar"
+        android:background="@drawable/edit_text"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:hint="@string/etNewsHint"
+        android:id="@+id/frNewsetNews"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/frNewstvSymthoms"
+        android:layout_below="@id/frNewsetNews"
+        android:text="@string/tvAddSymptomsText"
+        android:textColor="@color/colorLighterBlue"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/frNewstvSymthoms"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:background="@color/colorLightGreen"
+        android:id="@+id/frNewsllFilter">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/frNewstvFilterBy"
+            android:text="@string/tvFilterByText"
+            android:textColor="@color/colorWhite"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="5dp"
+            />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:id="@+id/frNewscbSymptoms"
+            android:text="@string/cbSymptomsText"
+            android:layout_marginRight="8dp"
+            style="@style/CustomCheckbox"
+            />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:id="@+id/frNewscbAllergies"
+            android:text="@string/cbAllergiesText"
+            style="@style/CustomCheckbox"
+            />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/frNewsllFilter"
+        android:layout_alignParentStart="true"
+        android:id="@+id/frNewsrvNews">
+
+    </android.support.v7.widget.RecyclerView>
+
+
+
+</RelativeLayout>

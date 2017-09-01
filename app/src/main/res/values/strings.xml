@@ -50,4 +50,6 @@
     <string name="action_sign_out">Sign out</string>
     <string name="city_hint">Enter a city</string>
     <string name="tvAmountUnit">parts/m3</string>
+    <string name="etNewsHint">What\'s bothering you?</string>
+    <string name="tvAddSymptomsText"><u>+Add symptoms</u></string>
 </resources>

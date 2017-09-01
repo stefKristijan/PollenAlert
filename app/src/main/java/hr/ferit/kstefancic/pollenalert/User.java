@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 
 public class User implements Serializable {
-    private String mUsername, mUniqueId, mFullName, mPassword, mEmail;
+    private String mUsername, mUniqueId, mFullName, mPassword, mEmail, mAvatarPath;
     private int id;
     private Bitmap mAvatar;
     private ArrayList<Location> mLocations;
@@ -24,6 +24,14 @@ public class User implements Serializable {
         id=-1;
         mUsername="";
         mAvatar=null;
+    }
+
+    public String getmAvatarPath() {
+        return mAvatarPath;
+    }
+
+    public void setmAvatarPath(String mAvatarPath) {
+        this.mAvatarPath = mAvatarPath;
     }
 
     public User(String mUsername, String mEmail) {

@@ -5,6 +5,8 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,12 +26,19 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 import hr.ferit.kstefancic.pollenalert.AppController;
 import hr.ferit.kstefancic.pollenalert.R;
 import hr.ferit.kstefancic.pollenalert.User;
+
+import static android.R.attr.src;
 
 /**
  * Created by Kristijan on 31.5.2017..
@@ -162,6 +171,7 @@ public class LogInFragment extends Fragment {
                 User user = new User(jObj.getString("username"),jObj.getString("email"));
                 user.setId(jObj.getInt("id"));
                 user.setmUniqueId(jObj.getString("unique_id"));
+                user.setmAvatarPath("http://pollenalert.000webhostapp.com/"+jObj.getString("avatar_path"));
                 return user;
             }
             else{
