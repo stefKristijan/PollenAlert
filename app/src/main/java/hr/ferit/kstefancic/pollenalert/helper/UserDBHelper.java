@@ -7,7 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 import hr.ferit.kstefancic.pollenalert.Location;
+import hr.ferit.kstefancic.pollenalert.Pollen;
 import hr.ferit.kstefancic.pollenalert.User;
 
 /**
@@ -22,6 +25,10 @@ public class UserDBHelper extends SQLiteOpenHelper {
     private static final String SELECT_USER = "SELECT * FROM " + Schema.TABLE_USER;
     private static final String CREATE_TABLE_LOCATION =  "CREATE TABLE " + Schema.TABLE_LOCATION + " (" + Schema.LOCATION_ID+" INTEGER," +
             Schema.STREET+" VARCHAR(100),"+Schema.STREET_NUM+" VARCHAR(10),"+Schema.CITY+" VARCHAR(50),"+Schema.STATE+" VARCHAR(50),"+Schema.COUNTRY+" VARCHAR(50));";
+    private static final String CREATE_TABLE_ALLERGIES =  "CREATE TABLE " + Schema.TABLE_ALLERGIES+ " (" + Schema.POLLEN_ID+" INTEGER," +
+            Schema.POLLEN_NAME+" VARCHAR(50),"+Schema.POLLEN_CATEGORY+" VARCHAR(20));";
+    private static final String SELECT_POLLEN = "SELECT * FROM " + Schema.TABLE_ALLERGIES;
+    private static final String SELECT_LOCATION = "SELECT * FROM " + Schema.TABLE_LOCATION;
     private static UserDBHelper mUserDBHelper = null;
 
     public UserDBHelper(Context context) {
@@ -35,16 +42,11 @@ public class UserDBHelper extends SQLiteOpenHelper {
         return mUserDBHelper;
     }
 
-    public void dropAll(){
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL(DROP_TABLE_USER);
-        db.execSQL("DROP TABLE IF EXISTS "+Schema.TABLE_LOCATION);
-    }
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_USER);
-        //db.execSQL(CREATE_TABLE_LOCATION);
+        db.execSQL(CREATE_TABLE_LOCATION);
+        db.execSQL(CREATE_TABLE_ALLERGIES);
     }
 
 
@@ -77,8 +79,54 @@ public class UserDBHelper extends SQLiteOpenHelper {
         contentValues.put(Schema.STATE,location.getmState());
         contentValues.put(Schema.COUNTRY,location.getmCountry());
         SQLiteDatabase wdb = this.getWritableDatabase();
-        wdb.insert(Schema.TABLE_LOCATION,Schema.LOCATION_ID,contentValues);
+        wdb.insert(Schema.TABLE_LOCATION,null,contentValues);
         wdb.close();
+    }
+
+    public void insertAllergies (ArrayList<Pollen> pollen){
+        ContentValues contentValues = new ContentValues();
+        SQLiteDatabase wdb = this.getWritableDatabase();
+        for(int i=0;i<pollen.size();i++) {
+            contentValues.put(Schema.POLLEN_ID, pollen.get(i).getId());
+            contentValues.put(Schema.POLLEN_NAME, pollen.get(i).getName());
+            contentValues.put(Schema.POLLEN_CATEGORY, pollen.get(i).getCategory());
+            wdb.insert(Schema.TABLE_ALLERGIES, null, contentValues);
+        }
+        wdb.close();
+    }
+
+    public ArrayList<Pollen> getAllergies(){
+        ArrayList<Pollen> allergies = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor pollenCursor = db.rawQuery(SELECT_POLLEN,null);
+        if(pollenCursor.moveToFirst()){
+            do{
+                int id=pollenCursor.getInt(0);
+                String name = pollenCursor.getString(1);
+                String category = pollenCursor.getString(2);
+                allergies.add(new Pollen(id,name,category));
+            }while(pollenCursor.moveToNext());
+        }
+        pollenCursor.close();
+        db.close();
+        return allergies;
+    }
+
+    public Location getLocation(){
+        Location location = null;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor locCursor = db.rawQuery(SELECT_LOCATION,null);
+        if(locCursor.moveToFirst()){
+            String street = locCursor.getString(1);
+            String streetNum = locCursor.getString(2);
+            String city = locCursor.getString(3);
+            String state = locCursor.getString(4);
+            String country = locCursor.getString(5);
+            location=new Location(street,city,country,state,streetNum);
+        }
+        locCursor.close();
+        db.close();
+        return location;
     }
 
     public User getUser(){
@@ -106,7 +154,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
         return user;
     }
 
-    public void deleteLocations(){
+    public void deleteLocation(){
         SQLiteDatabase wdb = this.getWritableDatabase();
         wdb.delete(Schema.TABLE_LOCATION,null,null);
         wdb.close();
@@ -118,8 +166,14 @@ public class UserDBHelper extends SQLiteOpenHelper {
         wdb.close();
     }
 
+    public void deleteAllergies(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(Schema.TABLE_ALLERGIES,null,null);
+        db.close();
+    }
+
     public static class Schema{
-        private static final int SCHEMA_VERSION = 5;
+        private static final int SCHEMA_VERSION = 6;
         private static final String DATABASE_NAME = "user_data.db";
         //user table
         static final String TABLE_USER = "user";
@@ -137,5 +191,10 @@ public class UserDBHelper extends SQLiteOpenHelper {
         static final String CITY = "city";
         static final String STATE = "state";
         static final String COUNTRY = "country";
+        //allergies table
+        static final String TABLE_ALLERGIES="allergies";
+        static final String POLLEN_ID="pollen_id";
+        static final String POLLEN_NAME ="name";
+        static final String POLLEN_CATEGORY="category";
     }
 }

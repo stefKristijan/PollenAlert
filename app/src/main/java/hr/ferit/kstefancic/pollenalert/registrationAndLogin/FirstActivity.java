@@ -97,7 +97,6 @@ public class FirstActivity extends AppCompatActivity implements LogInFragment.Lo
     @Override
     public void onLocationCreated(Location location){
         mLocation=location;
-
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.activityFirst_fl, new SignUpFragment3());
@@ -109,11 +108,6 @@ public class FirstActivity extends AppCompatActivity implements LogInFragment.Lo
     public void onFinish(ArrayList<Pollen> pollenList) {
         this.mPollenList = new ArrayList<>();
         this.mPollenList = pollenList;
-        String pollens="";
-        for(int i=0;i<mPollenList.size();i++){
-            pollens+=String.valueOf(mPollenList.get(i).getId())+" ";
-        }
-        Toast.makeText(this,pollens,Toast.LENGTH_SHORT).show();
         register();
     }
 
@@ -220,19 +214,19 @@ public class FirstActivity extends AppCompatActivity implements LogInFragment.Lo
             @Override
             public void onResponse(String response) {
                 Log.d("LOCATION_RESPONSE",response.toString());
-               /* try{
+                try{
                     JSONObject jsonObject = new JSONObject(response);
                     boolean error = jsonObject.getBoolean("error");
                     if(!error){
-                        Toast.makeText(FirstActivity.this, ADDLOCATION_SUCCESS,Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(FirstActivity.this, ADDLOCATION_SUCCESS,Toast.LENGTH_SHORT).show();
                         addPollenToDatabase();
                     }
                     else{
-                        Toast.makeText(FirstActivity.this,jsonObject.getString("error_msg"),Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(FirstActivity.this,jsonObject.getString("error_msg"),Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }*/
+                }
                 hideDialog();
             }
         }, new Response.ErrorListener() {

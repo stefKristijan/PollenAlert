@@ -18,17 +18,25 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import hr.ferit.kstefancic.pollenalert.helper.SessionManager;
 import hr.ferit.kstefancic.pollenalert.helper.UserDBHelper;
@@ -37,6 +45,8 @@ import hr.ferit.kstefancic.pollenalert.registrationAndLogin.FirstActivity;
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_LOCATION_PERMISSION = 10;
+    private static final String URL_GET_LOCATION = "http://pollenalert.000webhostapp.com/get_user_location.php";
+    private static final String URL_USER_ALLERGIES = "http://pollenalert.000webhostapp.com/get_user_allergies.php";
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -69,7 +79,127 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mUser = (User) getIntent().getSerializableExtra(FirstActivity.USER);
+        getUserDataFromDatabase();
         setUpUI();
+    }
+
+    private void getUserDataFromDatabase() {
+        Location location = UserDBHelper.getInstance(this).getLocation();
+        ArrayList<Pollen> allergies = UserDBHelper.getInstance(this).getAllergies();
+        if(location!=null && allergies!=null){
+            Log.d("dataFromDatabase",location.getmCity()+" "+allergies.get(0).getName());
+            mUser.setmLocation(location);
+            mUser.setmAllergies(allergies);
+        }else{
+            getLocationFromServer();
+            Log.d("dataFromDatabase","from server");
+        }
+    }
+
+    private void getLocationFromServer() {
+        String tag_str_req="req_user_location";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_GET_LOCATION, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("RESPONSE",response.toString());
+                parseJSONLocation(response);
+                getUserAllergies();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("RESPONSE","Data error: "+ error.getMessage());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String,String>();
+                params.put("user_id",String.valueOf(mUser.getId()));
+                return params;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(stringRequest,tag_str_req);
+    }
+
+
+    private void getUserAllergies() {
+        String tag_str_req = "req_user_allergies";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_USER_ALLERGIES, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("RESPONSE",response.toString());
+                parseJSONAllergies(response);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("RESPONSE","Data error: "+ error.getMessage());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String,String>();
+                params.put("user_id",String.valueOf(mUser.getId()));
+                return params;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(stringRequest,tag_str_req);
+
+    }
+
+    private void parseJSONAllergies(String response) {
+        JSONObject jObj = null;
+        JSONArray jArray = null;
+        ArrayList<Pollen> allergies = new ArrayList<>();
+        try {
+            jObj = new JSONObject(response);
+            boolean error = jObj.getBoolean("error");
+
+            if(!error){
+                jArray = jObj.getJSONArray("pollen_data");
+                for(int i=0;i<jArray.length();i++){
+                    JSONObject jo = jArray.getJSONObject(i);
+                    Pollen pollen = new Pollen(jo.getInt("id"),jo.getString("name"),jo.getString("category"));
+                    allergies.add(pollen);
+                    Log.d("Serverpollen",pollen.getName());
+                }
+            }
+            mUser.setmAllergies(allergies);
+            UserDBHelper.getInstance(this).insertAllergies(allergies);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void parseJSONLocation(String response) {
+        try {
+            JSONObject jObj = new JSONObject(response);
+            boolean error = jObj.getBoolean("error");
+
+            if(!error){
+                String street = jObj.getString("street");
+                String street_num = jObj.getString("street_num");
+                String city = jObj.getString("city");
+                String state = jObj.getString("state");
+                String country = jObj.getString("country");
+                Location location = new Location(street,city,country,state,street_num);
+                Log.d("locationSeerve",location.getmCity());
+                mUser.setmLocation(location);
+                UserDBHelper.getInstance(this).insertLocation(location);
+            }
+            else{
+                String errorMsg = jObj.getString("error_msg");
+                Toast.makeText(this,errorMsg,Toast.LENGTH_SHORT).show();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void setUpUI() {
@@ -232,7 +362,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void signOut() {
         this.mSessionManager.setLogin(false);
-        //UserDBHelper.getInstance(this).deleteLocations();
+        UserDBHelper.getInstance(this).deleteLocation();
+        UserDBHelper.getInstance(this).deleteAllergies();
         UserDBHelper.getInstance(this).deleteUser();
         Intent loginIntent = new Intent(MainActivity.this,FirstActivity.class);
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);

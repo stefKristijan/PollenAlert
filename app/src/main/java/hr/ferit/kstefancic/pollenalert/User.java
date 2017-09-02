@@ -13,8 +13,8 @@ public class User implements Serializable {
     private String mUsername, mUniqueId, mFullName, mPassword, mEmail, mAvatarPath;
     private int id;
     private Bitmap mAvatar;
-    private ArrayList<Location> mLocations;
-    private ArrayList<Pollen> mAllergies;
+    private Location mLocation;
+    private ArrayList<Pollen> mAllergies = new ArrayList<>();
 
     public User (){
         mUniqueId ="";
@@ -24,6 +24,14 @@ public class User implements Serializable {
         id=-1;
         mUsername="";
         mAvatar=null;
+    }
+
+    public ArrayList<Pollen> getmAllergies() {
+        return mAllergies;
+    }
+
+    public void setmAllergies(ArrayList<Pollen> mAllergies) {
+        this.mAllergies = mAllergies;
     }
 
     public String getmAvatarPath() {
@@ -37,6 +45,14 @@ public class User implements Serializable {
     public User(String mUsername, String mEmail) {
         this.mUsername = mUsername;
         this.mEmail = mEmail;
+    }
+
+    public Location getmLocation() {
+        return mLocation;
+    }
+
+    public void setmLocation(Location mLocation) {
+        this.mLocation = mLocation;
     }
 
     public Bitmap getmAvatar() {
