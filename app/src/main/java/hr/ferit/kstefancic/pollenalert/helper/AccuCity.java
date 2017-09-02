@@ -26,6 +26,14 @@ public class AccuCity {
         }
     }
 
+    public String getmRegion() {
+        return mRegion;
+    }
+
+    public void setmRegion(String mRegion) {
+        this.mRegion = mRegion;
+    }
+
     public String getmCity() {
         return mCity;
     }

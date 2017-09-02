@@ -19,16 +19,20 @@ import hr.ferit.kstefancic.pollenalert.User;
 
 public class UserDBHelper extends SQLiteOpenHelper {
 
-    private static final String CREATE_TABLE_USER = "CREATE TABLE " + Schema.TABLE_USER + " (" + Schema.USER_ID+" INTEGER," +
+    private static final String CREATE_TABLE_USER = "CREATE TABLE IF NOT EXISTS " + Schema.TABLE_USER + " (" + Schema.USER_ID+" INTEGER," +
             Schema.USER_UNIQID+" VARCHAR(23),"+Schema.USERNAME+" VARCHAR(50),"+Schema.EMAIL+" VARCHAR(150),"+Schema.FULL_NAME+" VARCHAR(100),"+Schema.AVATAR_PATH+" VARCHAR(150))";
-    private static final String DROP_TABLE_USER = "DROP TABLE IF EXISTS "+Schema.TABLE_USER;
-    private static final String SELECT_USER = "SELECT * FROM " + Schema.TABLE_USER;
-    private static final String CREATE_TABLE_LOCATION =  "CREATE TABLE " + Schema.TABLE_LOCATION + " (" + Schema.LOCATION_ID+" INTEGER," +
-            Schema.STREET+" VARCHAR(100),"+Schema.STREET_NUM+" VARCHAR(10),"+Schema.CITY+" VARCHAR(50),"+Schema.STATE+" VARCHAR(50),"+Schema.COUNTRY+" VARCHAR(50));";
-    private static final String CREATE_TABLE_ALLERGIES =  "CREATE TABLE " + Schema.TABLE_ALLERGIES+ " (" + Schema.POLLEN_ID+" INTEGER," +
+
+    private static final String CREATE_TABLE_LOCATION =  "CREATE TABLE IF NOT EXISTS " + Schema.TABLE_LOCATION + " (" + Schema.LOCATION_ID+" INTEGER," +
+            Schema.STREET+" VARCHAR(100),"+Schema.STREET_NUM+" VARCHAR(10),"+Schema.CITY+" VARCHAR(50),"+Schema.STATE+" VARCHAR(50),"+Schema.COUNTRY+" VARCHAR(50),"+Schema.LOCATION_KEY+" VARCHAR(10));";
+    private static final String CREATE_TABLE_ALLERGIES =  "CREATE TABLE IF NOT EXISTS " + Schema.TABLE_ALLERGIES+ " (" + Schema.POLLEN_ID+" INTEGER," +
             Schema.POLLEN_NAME+" VARCHAR(50),"+Schema.POLLEN_CATEGORY+" VARCHAR(20));";
     private static final String SELECT_POLLEN = "SELECT * FROM " + Schema.TABLE_ALLERGIES;
     private static final String SELECT_LOCATION = "SELECT * FROM " + Schema.TABLE_LOCATION;
+    private static final String SELECT_USER = "SELECT * FROM " + Schema.TABLE_USER;
+    private static final String DROP_TABLE_USER = "DROP TABLE IF EXISTS "+Schema.TABLE_USER;
+    private static final String DROP_TABLE_LOCATION = "DROP TABLE IF EXISTS "+Schema.TABLE_LOCATION;
+    private static final String DROP_TABLE_ALLERGIES = "DROP TABLE IF EXISTS "+Schema.TABLE_ALLERGIES;
+
     private static UserDBHelper mUserDBHelper = null;
 
     public UserDBHelper(Context context) {
@@ -53,6 +57,8 @@ public class UserDBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(DROP_TABLE_USER);
+        db.execSQL(DROP_TABLE_LOCATION);
+        db.execSQL(DROP_TABLE_ALLERGIES);
         this.onCreate(db);
     }
 
@@ -71,6 +77,8 @@ public class UserDBHelper extends SQLiteOpenHelper {
     }
 
     public void insertLocation (Location location){
+        SQLiteDatabase wdb = getWritableDatabase();
+        wdb.execSQL("DELETE FROM "+Schema.TABLE_LOCATION);
         ContentValues contentValues = new ContentValues();
         contentValues.put(Schema.LOCATION_ID,location.getId());
         contentValues.put(Schema.STREET,location.getmStreet());
@@ -78,7 +86,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
         contentValues.put(Schema.CITY,location.getmCity());
         contentValues.put(Schema.STATE,location.getmState());
         contentValues.put(Schema.COUNTRY,location.getmCountry());
-        SQLiteDatabase wdb = this.getWritableDatabase();
+        contentValues.put(Schema.LOCATION_KEY, location.getmKey());
         wdb.insert(Schema.TABLE_LOCATION,null,contentValues);
         wdb.close();
     }
@@ -122,7 +130,9 @@ public class UserDBHelper extends SQLiteOpenHelper {
             String city = locCursor.getString(3);
             String state = locCursor.getString(4);
             String country = locCursor.getString(5);
+            String key = locCursor.getString(6);
             location=new Location(street,city,country,state,streetNum);
+            location.setmKey(key);
         }
         locCursor.close();
         db.close();
@@ -173,7 +183,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
     }
 
     public static class Schema{
-        private static final int SCHEMA_VERSION = 6;
+        private static final int SCHEMA_VERSION = 12;
         private static final String DATABASE_NAME = "user_data.db";
         //user table
         static final String TABLE_USER = "user";
@@ -191,6 +201,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
         static final String CITY = "city";
         static final String STATE = "state";
         static final String COUNTRY = "country";
+        static final String LOCATION_KEY = "key";
         //allergies table
         static final String TABLE_ALLERGIES="allergies";
         static final String POLLEN_ID="pollen_id";

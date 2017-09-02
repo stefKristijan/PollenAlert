@@ -6,6 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageButton
+        android:id="@+id/frLPibHome"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:background="@drawable/button_shape"
+        app:layout_constraintBottom_toBottomOf="@+id/frLPaetLocation"
+        app:layout_constraintTop_toTopOf="@+id/frLPaetLocation"
+        app:layout_constraintVertical_bias="1.0"
+        android:src="@mipmap/home_icon"
+        android:scaleType="fitCenter"
+        app:layout_constraintRight_toLeftOf="@+id/frLPibCurrentLocation"
+        app:layout_constraintLeft_toRightOf="@+id/frLPibSearch"
+        android:layout_marginRight="2dp"
+        android:layout_marginLeft="8dp" />
+
     <AutoCompleteTextView
         android:id="@+id/frLPaetLocation"
         android:layout_width="0dp"
@@ -13,30 +28,43 @@
         android:layout_marginTop="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/frLPibSearch"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="2dp"
         android:background="@drawable/edit_text"
         android:hint="@string/city_hint"
         android:padding="5dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="2dp"
-        android:maxLines="1"/>
+
+        android:maxLines="1"
+        app:layout_constraintRight_toLeftOf="@+id/frLPibSearch"
+        android:layout_marginLeft="8dp" />
 
     <ImageButton
         android:id="@+id/frLPibSearch"
         android:layout_width="60dp"
         android:layout_height="30dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="0dp"
         android:background="@drawable/button_shape"
+        android:src="@mipmap/search_icon"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/frLPaetLocation"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toRightOf="@+id/frLPaetLocation"
-        app:layout_constraintRight_toLeftOf="@+id/frLPibCurrentLocation"
+        app:layout_constraintRight_toLeftOf="@+id/frLPibHome"
         app:layout_constraintTop_toTopOf="@+id/frLPaetLocation"
-        app:srcCompat="@android:drawable/ic_menu_search" />
+        app:layout_constraintVertical_bias="1.0"
+        android:layout_marginRight="2dp"
+        android:layout_marginLeft="2dp" />
+
+    <ImageButton
+        android:id="@+id/frLPibCurrentLocation"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:background="@drawable/button_shape"
+        app:layout_constraintRight_toRightOf="parent"
+        android:src="@mipmap/current_location_icon"
+        android:scaleType="fitCenter"
+        app:layout_constraintTop_toTopOf="@+id/frLPaetLocation"
+        app:layout_constraintBottom_toBottomOf="@+id/frLPaetLocation"
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintLeft_toRightOf="@+id/frLPibHome"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="8dp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/frLPrvPollenData"
@@ -47,26 +75,11 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frLPaetLocation"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <ImageButton
-        android:id="@+id/frLPibCurrentLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/button_shape"
-        app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_mylocation"
-        app:layout_constraintTop_toTopOf="@+id/frLPaetLocation"
-        android:layout_marginTop="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/frLPaetLocation"
-        android:layout_marginBottom="0dp" />
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </android.support.constraint.ConstraintLayout>

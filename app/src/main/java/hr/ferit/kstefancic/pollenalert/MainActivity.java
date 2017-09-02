@@ -1,6 +1,7 @@
 package hr.ferit.kstefancic.pollenalert;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
     };
     private SessionManager mSessionManager;
     public static final String ApiKey ="eIswG7hdAtgPUincnaJgb8SuUaQzS45R"; //"gP4M9GSljRr7BrbSVA22r447bUnhRQXL";
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
         mUser = (User) getIntent().getSerializableExtra(FirstActivity.USER);
         getUserDataFromDatabase();
-        setUpUI();
+
     }
 
     private void getUserDataFromDatabase() {
@@ -90,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("dataFromDatabase",location.getmCity()+" "+allergies.get(0).getName());
             mUser.setmLocation(location);
             mUser.setmAllergies(allergies);
+            setUpUI();
         }else{
             getLocationFromServer();
             Log.d("dataFromDatabase","from server");
@@ -97,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getLocationFromServer() {
+        showDialog();
         String tag_str_req="req_user_location";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_GET_LOCATION, new Response.Listener<String>() {
             @Override
@@ -109,6 +113,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("RESPONSE","Data error: "+ error.getMessage());
+                Toast.makeText(getApplicationContext(),"Something went wrong",Toast.LENGTH_SHORT).show();
+                hideDialog();
             }
         }){
             @Override
@@ -131,12 +137,14 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 Log.d("RESPONSE",response.toString());
                 parseJSONAllergies(response);
-
+                setUpUI();
+                hideDialog();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("RESPONSE","Data error: "+ error.getMessage());
+                hideDialog();
             }
         }){
             @Override
@@ -201,6 +209,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    private void showDialog(){
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Fetching location data");
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+    private void hideDialog(){
+        progressDialog.dismiss();
+    }
 
     private void setUpUI() {
         this.mSessionManager = new SessionManager(this);
@@ -224,7 +243,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d("viewPages",mUser.getmUsername()+" "+mUser.getmAvatarPath());
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
         Fragment userNewsFr = UserNewsFragment.newInstance(mUser);
-        adapter.addFragment(new LocationPollenFragment());
+        Fragment locationPollenFr = LocationPollenFragment.newInstance(mUser);
+        adapter.addFragment(locationPollenFr);
         adapter.addFragment(userNewsFr);
         adapter.addFragment(new MyDiaryFragment());
         adapter.addFragment(new SettingsFragment());
