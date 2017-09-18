@@ -68,7 +68,7 @@ public class FirstActivity extends AppCompatActivity implements LogInFragment.Lo
 
     private void checkIfLoggedIn() {
         this.mSessionManager = new SessionManager(this);
-       /* this.mSessionManager.setLogin(false);
+       /*this.mSessionManager.setLogin(false);
         UserDBHelper.getInstance(this).deleteAllergies();
         UserDBHelper.getInstance(this).deleteUser();
         UserDBHelper.getInstance(this).deleteLocation();*/

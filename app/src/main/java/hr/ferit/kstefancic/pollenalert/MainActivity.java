@@ -43,7 +43,7 @@ import hr.ferit.kstefancic.pollenalert.helper.SessionManager;
 import hr.ferit.kstefancic.pollenalert.helper.UserDBHelper;
 import hr.ferit.kstefancic.pollenalert.registrationAndLogin.FirstActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NewPostFragment.InsertListener {
 
     private static final int REQUEST_LOCATION_PERMISSION = 10;
     private static final String URL_GET_LOCATION = "http://pollenalert.000webhostapp.com/get_user_location.php";
@@ -68,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
     private int[] tabIcons={
             R.mipmap.location_icon,
             R.mipmap.news,
-            R.mipmap.my_diary_icon,
-            R.mipmap.settings_icon
+            R.mipmap.new_post,
+            R.mipmap.my_diary_icon
     };
     private SessionManager mSessionManager;
     public static final String ApiKey ="eIswG7hdAtgPUincnaJgb8SuUaQzS45R"; //"gP4M9GSljRr7BrbSVA22r447bUnhRQXL";
@@ -240,14 +240,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpViewPager() {
-        Log.d("viewPages",mUser.getmUsername()+" "+mUser.getmAvatarPath());
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
         Fragment userNewsFr = UserNewsFragment.newInstance(mUser);
         Fragment locationPollenFr = LocationPollenFragment.newInstance(mUser);
+        Fragment newPostFr = NewPostFragment.newInstance(mUser);
         adapter.addFragment(locationPollenFr);
         adapter.addFragment(userNewsFr);
-        adapter.addFragment(new MyDiaryFragment());
-        adapter.addFragment(new SettingsFragment());
+        adapter.addFragment(newPostFr);
+        //adapter.addFragment(new MyDiaryFragment());
         mViewPager.setAdapter(adapter);
     }
 
@@ -255,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-        tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+        //tabLayout.getTabAt(3).setIcon(tabIcons[3]);
     }
 
     @Override
@@ -263,20 +263,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         if(!hasLocationPermission()){
             requestPermission();
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if(hasLocationPermission()){
-
         }
     }
 
@@ -390,6 +376,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(loginIntent);
     }
 
+    @Override
+    public void onInsertPost() {
+        mViewPager.setCurrentItem(1);
+    }
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -422,4 +413,6 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
     }
+
+
 }

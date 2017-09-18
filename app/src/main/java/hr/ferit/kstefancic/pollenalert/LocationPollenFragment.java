@@ -82,6 +82,7 @@ public class LocationPollenFragment extends Fragment {
     }
 
     private void setUpUI(View layout) {
+        this.atvLocation = (AutoCompleteTextView) layout.findViewById(R.id.frLPaetLocation);
         //Prvo se provjerava je li dopušteno korištenje lokacije, ako je uzima se zadnja poznata lokacija
         //i na temelju nje se dobivaju podaci o peludi, inače se izvršava getKeyFromLocation()
         if(hasLocationPermission()) {
@@ -117,7 +118,7 @@ public class LocationPollenFragment extends Fragment {
                startGetCurrentLocation();
             }
         });
-        this.atvLocation = (AutoCompleteTextView) layout.findViewById(R.id.frLPaetLocation);
+
         this.ibHome= (ImageButton) layout.findViewById(R.id.frLPibHome);
         this.ibHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,8 +132,9 @@ public class LocationPollenFragment extends Fragment {
     //ukoliko ne postoji zapis o Key-u u SQLite bazi, traži se od API-ja
     private void getKeyFromUserLocation() {
         if(!mUser.getmLocation().getmKey().equals("")){
-            Log.d("getKEYIF","getPOllenFromSQLiteKEY");
+            Log.d("getKEYIF","getPOllenFromSQLiteKEY"+ mUser.getmLocation().getmKey());
             getPollenData(mUser.getmLocation().getmKey());
+            atvLocation.setText(mUser.getmLocation().toString());
         }
         else{
             Log.d("getKEYIF","noSQLiteKey");

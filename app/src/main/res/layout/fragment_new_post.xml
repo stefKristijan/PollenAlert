@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="3">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/avatar"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:id="@+id/newPost_ivAvatar"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:text="USER"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:id="@+id/newPost_tvUser"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:text="Location"
+            android:gravity="center"
+            android:id="@+id/newPost_tvLocation"/>
+    </LinearLayout>
+
+
+    <TableLayout
+        android:id="@+id/newPost_tableEmojis"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp">
+
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+            <ImageView
+                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:src="@mipmap/laugh_emoji"
+                android:layout_weight="1"
+                android:id="@+id/newPost_ivVeryGood"
+                android:background="@color/colorLightGreen"
+                />
+            <ImageView
+                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:src="@mipmap/smiley_emoji"
+                android:layout_weight="1"
+                android:id="@+id/newPost_ivGood"
+                android:background="@color/colorWhite"/>
+            <ImageView
+                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:src="@mipmap/not_good_emoji"
+                android:layout_weight="1"
+                android:id="@+id/newPost_ivNeutral"
+                android:background="@color/colorWhite"/>
+            <ImageView
+                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:src="@mipmap/sad_emoji"
+                android:layout_weight="1"
+                android:id="@+id/newPost_ivBad"
+                android:background="@color/colorWhite"/>
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Very good"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                android:id="@+id/newPost_tvVeryGood"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Good"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                android:id="@+id/newPost_tvGood"
+                android:background="@color/colorWhite"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Neutral"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                android:id="@+id/newPost_tvNeutral"
+                android:background="@color/colorWhite"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bad"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                android:id="@+id/newPost_tvBad"
+                android:background="@color/colorWhite"
+                />
+        </TableRow>
+
+        <TableRow
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="16dp"
+            >
+
+            <ImageView
+                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:src="@mipmap/feeling_bad_emoji"
+                android:layout_weight="1"
+                android:id="@+id/newPost_ivVeryBad"
+                android:background="@color/colorWhite"
+                />
+            <ImageView
+                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:src="@mipmap/sneezing_emoji"
+                android:layout_weight="1"
+                android:id="@+id/newPost_ivACold"
+                android:background="@color/colorWhite"/>
+            <ImageView
+                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:src="@mipmap/feeling_sick_emoji"
+                android:layout_weight="1"
+                android:id="@+id/newPost_ivSick"
+                android:background="@color/colorWhite"/>
+            <ImageView
+                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:src="@mipmap/very_sick_emoji"
+                android:layout_weight="1"
+                android:id="@+id/newPost_ivVerySick"
+                android:background="@color/colorWhite"/>
+
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Very bad"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                android:id="@+id/newPost_tvVeryBad"
+                android:background="@color/colorWhite"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="A cold"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                android:id="@+id/newPost_tvACold"
+                android:background="@color/colorWhite"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sick"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                android:background="@color/colorWhite"
+                android:id="@+id/newPost_tvSick"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Very sick"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                android:id="@+id/newPost_tvVerySick"
+                android:background="@color/colorWhite"
+                />
+        </TableRow>
+
+    </TableLayout>
+
+    <RelativeLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_weight="3">
+
+            <TextView
+                android:text="@string/tvSymptomsText"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="16dp"
+                android:id="@+id/newPost_tvSymptoms"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"/>
+
+            <hr.ferit.kstefancic.pollenalert.helper.MultiSpinner
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/newPost_spinnerSymptoms"
+                android:layout_toEndOf="@id/newPost_tvSymptoms"
+                android:layout_marginTop="12dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="Post"
+            android:textColor="@color/colorWhite"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/newPost_tvSymptoms"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/button_shape"
+            android:id="@+id/newPost_btnPost"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

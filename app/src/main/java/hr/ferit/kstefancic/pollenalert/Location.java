@@ -19,6 +19,16 @@ public class Location implements Serializable{
         this.mKey="";
     }
 
+    @Override
+    public String toString() {
+        if(mState.isEmpty()){
+            return mCity+", "+mCountry;
+        }
+        else{
+            return  mCity+", "+mState+", "+mCountry;
+        }
+    }
+
     public String getmKey() {
         return mKey;
     }

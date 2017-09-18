@@ -16,6 +16,7 @@ public class User implements Serializable {
     private Location mLocation;
     private ArrayList<Pollen> mAllergies = new ArrayList<>();
 
+
     public User (){
         mUniqueId ="";
         mEmail = "";
