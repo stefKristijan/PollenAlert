@@ -51,6 +51,7 @@ public class TrackLocationService extends Service
     private static final float LOCATION_DISTANCE = 0;
     private ArrayList<AccuPollenForecast> mAccuPollens;
     private ArrayList<Pollen> mUserAllergies;
+    private User mUser;
     private static final String HIGH = "High";
 
     private class CurrLocationListener implements LocationListener
@@ -176,8 +177,9 @@ public class TrackLocationService extends Service
 
     private void showNotification() {
         Log.d(TAG,"showNotify");
-        Intent notificationIntent = new Intent(this, MainActivity.class);
+        Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
         notificationIntent.putExtra(MSG_KEY,MSG_TEXT);
+        notificationIntent.putExtra("user",mUser);
         PendingIntent notificationPendingIntent = PendingIntent.getActivity(
                 this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
@@ -270,7 +272,8 @@ public class TrackLocationService extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-        mUserAllergies = (ArrayList<Pollen>) intent.getSerializableExtra(USER_KEY);
+        mUser = (User) intent.getSerializableExtra(USER_KEY);
+        mUserAllergies = mUser.getmAllergies();
         mAccuPollens = new ArrayList<>();
         Log.e(TAG, mUserAllergies.get(0).getCategory());
         super.onStartCommand(intent, flags, startId);

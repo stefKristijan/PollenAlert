@@ -176,7 +176,7 @@
         app:layout_constraintLeft_toLeftOf="@+id/signUpFr1_etPassword"
         app:layout_constraintHorizontal_bias="0.0"
         android:textColor="@color/colorLighterBlue"
-         />
+        />
 
     <ImageView
         android:id="@+id/signUpFr1_ivStep2"

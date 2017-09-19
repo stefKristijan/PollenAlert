@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements NewPostFragment.I
             mUser.setmLocation(location);
             mUser.setmAllergies(allergies);
             Intent serviceIntent = new Intent(this,TrackLocationService.class);
-            serviceIntent.putExtra(USER_KEY,mUser.getmAllergies());
+            serviceIntent.putExtra(USER_KEY,mUser);
             startService(serviceIntent);
             setUpUI();
         }else{
