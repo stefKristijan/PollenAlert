@@ -49,10 +49,6 @@ import hr.ferit.kstefancic.pollenalert.registrationAndLogin.SignUpFragment3;
  */
 
 public class NewPostFragment extends Fragment implements View.OnClickListener {
-
-
-    private static final String GPS_DISABLED = "Please enable GPS to use this feature!";
-    private static final String NO_PERMISSION = "You must allow the application to use location to use this feature!";
     private static final String USER_KEY = "user";
     private static final String URL_INSERT_POST = "http://pollenalert.000webhostapp.com/insert_post.php";
     private static final String INSERT_SUCCESS = "Post inserted successfully!";
@@ -78,6 +74,7 @@ public class NewPostFragment extends Fragment implements View.OnClickListener {
         return fragment;
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -88,7 +85,6 @@ public class NewPostFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setUpUI(View layout) {
-        startGetCurrentLocation();
         this.ivAvatar = (ImageView) layout.findViewById(R.id.newPost_ivAvatar);
         Picasso.with(getActivity())
                 .load(mUser.getmAvatarPath())
@@ -104,15 +100,12 @@ public class NewPostFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onItemsSelected(boolean[] selected) {
                 sbSymptoms = new StringBuilder();
-                String sufix = ",";
+                String prefix = "";
                 for (int i = 0; i < selected.length; i++) {
                     if (selected[i]) {
-                        if (i != selected.length - 1) {
-                            sbSymptoms.append(symptoms.get(i));
-                            sbSymptoms.append(sufix);
-                        } else {
-                            sbSymptoms.append(symptoms.get(i));
-                        }
+                        sbSymptoms.append(prefix);
+                        prefix=",";
+                        sbSymptoms.append(symptoms.get(i));
                     }
                 }
 
@@ -126,6 +119,7 @@ public class NewPostFragment extends Fragment implements View.OnClickListener {
                 insertIntoDatabase(feeling);
             }
         });
+        startGetCurrentLocation();
     }
 
     private void insertIntoDatabase(final String feeling) {

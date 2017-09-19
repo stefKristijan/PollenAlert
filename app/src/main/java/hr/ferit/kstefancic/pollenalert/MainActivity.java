@@ -233,7 +233,6 @@ public class MainActivity extends AppCompatActivity implements NewPostFragment.I
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         setUpViewPager();
-
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
         setUpTabIcons();

@@ -51,6 +51,8 @@
     <string name="tvAddSymptomsText"><u>+Add symptoms</u></string>
     <string name="btnNewPostText">New</string>
     <string name="btnPostText">Post</string>
+    <string name="tvIsFeelingText">is feeling</string>
+    <string name="tvLoggedInAsText">Logged as:</string>
     <string-array name="symptoms">
         <item>coughing</item>
         <item>sneezing</item>

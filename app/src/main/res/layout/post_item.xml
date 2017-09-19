@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/table_pollen_background">
+
+    <ImageView
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:id="@+id/rvNewsIvAvatar"
+        android:layout_margin="8dp"
+        android:src="@mipmap/avatar"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/rvNewsIvAvatar"
+        android:layout_marginTop="8dp"
+        android:id="@+id/rvNewsTvUser"
+        android:textStyle="bold"
+        android:text="user"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/rvNewsTvUser"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:text="@string/tvIsFeelingText"
+        android:id="@+id/rvNewsTvIsFeeling"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/rvNewsTvIsFeeling"
+        android:layout_marginTop="8dp"
+        android:id="@+id/rvNewsTvFeeling"
+        android:text="very good"
+        android:textStyle="bold"
+        />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/rvNewsTvFeeling"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/rvNewsIvFeeling"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/rvNewsIvFeeling"
+        android:layout_toRightOf="@id/rvNewsIvAvatar"
+        android:id="@+id/rvNewsTvAtLocation"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rvNewsTvAtLocation"
+        android:layout_toRightOf="@id/rvNewsIvAvatar"
+        android:layout_marginTop="8dp"
+        android:id="@+id/rvNewsTvSymptoms"/>
+</RelativeLayout>

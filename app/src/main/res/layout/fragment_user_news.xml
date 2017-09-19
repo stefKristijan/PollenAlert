@@ -9,25 +9,31 @@
         android:id="@+id/frNewsivAvatar"
         android:src="@mipmap/user"
         android:layout_margin="8dp"/>
-    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/frNewstvLoggedInAs"
+        android:textSize="18sp"
+        android:layout_toRightOf="@+id/frNewsivAvatar"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/tvLoggedInAsText"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/frNewstvUser"
         android:textStyle="bold"
         android:textSize="18sp"
-        android:layout_toRightOf="@+id/frNewsivAvatar"
+        android:layout_toRightOf="@+id/frNewstvLoggedInAs"
         android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        android:text="User"/>
+        android:layout_marginRight="8dp"/>
     
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/frNewstvLocation"
         android:layout_below="@+id/frNewstvUser"
-        android:layout_toRightOf="@+id/frNewsivAvatar"
-        android:text="lcation"/>
+        android:layout_toRightOf="@+id/frNewsivAvatar"/>
 
     <!--><Button
         android:id="@+id/frNewsbtnNewPost"
@@ -43,7 +49,7 @@
         android:textColor="@color/colorWhite"/><!-->
 
 
-    <LinearLayout
+   <!--> <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/frNewsivAvatar"
@@ -80,16 +86,23 @@
             android:text="@string/cbAllergiesText"
             style="@style/CustomCheckbox"
             />
-    </LinearLayout>
-
+    </LinearLayout><!-->
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/frNewsivAvatar"
+        android:layout_marginTop="8dp"
+        android:layout_alignParentStart="true"
+        android:id="@+id/swipeRecyclerView">
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/frNewsllFilter"
-        android:layout_alignParentStart="true"
+
         android:id="@+id/frNewsrvNews">
 
     </android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 
 
