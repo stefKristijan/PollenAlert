@@ -1,10 +1,12 @@
 package hr.ferit.kstefancic.pollenalert;
 
+import java.io.Serializable;
+
 /**
  * Created by Kristijan on 18.8.2017..
  */
 
-public class Pollen {
+public class Pollen implements Serializable {
     private int id;
     private String name, category;
     private boolean checked;

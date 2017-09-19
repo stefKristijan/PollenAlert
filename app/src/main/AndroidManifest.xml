@@ -34,6 +34,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCqyhQvdRCu7B5YZZ9rWWDNhRQKgEBdZuc" />
 
+        <service android:name=".helper.TrackLocationService"/>
     </application>
 
 </manifest>

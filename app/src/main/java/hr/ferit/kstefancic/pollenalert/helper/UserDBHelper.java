@@ -63,7 +63,6 @@ public class UserDBHelper extends SQLiteOpenHelper {
     }
 
     public void insertUser(User user){
-        Log.d("SQLITE",user.getmAvatarPath());
         ContentValues contentValues = new ContentValues();
         contentValues.put(Schema.USER_ID,user.getId());
         contentValues.put(Schema.USER_UNIQID,user.getmUniqueId());

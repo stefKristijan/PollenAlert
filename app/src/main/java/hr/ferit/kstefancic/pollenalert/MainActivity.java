@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 
 import hr.ferit.kstefancic.pollenalert.helper.SessionManager;
+import hr.ferit.kstefancic.pollenalert.helper.TrackLocationService;
 import hr.ferit.kstefancic.pollenalert.helper.UserDBHelper;
 import hr.ferit.kstefancic.pollenalert.registrationAndLogin.FirstActivity;
 
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements NewPostFragment.I
     private static final int REQUEST_LOCATION_PERMISSION = 10;
     private static final String URL_GET_LOCATION = "http://pollenalert.000webhostapp.com/get_user_location.php";
     private static final String URL_USER_ALLERGIES = "http://pollenalert.000webhostapp.com/get_user_allergies.php";
+    private static final String USER_KEY = "user";
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements NewPostFragment.I
             R.mipmap.my_diary_icon
     };
     private SessionManager mSessionManager;
-    public static final String ApiKey ="eIswG7hdAtgPUincnaJgb8SuUaQzS45R"; //"gP4M9GSljRr7BrbSVA22r447bUnhRQXL";
+    public static final String ApiKey ="gP4M9GSljRr7BrbSVA22r447bUnhRQXL"; //"" eIswG7hdAtgPUincnaJgb8SuUaQzS45R";
     private ProgressDialog progressDialog;
 
     @Override
@@ -92,6 +94,9 @@ public class MainActivity extends AppCompatActivity implements NewPostFragment.I
             Log.d("dataFromDatabase",location.getmCity()+" "+allergies.get(0).getName());
             mUser.setmLocation(location);
             mUser.setmAllergies(allergies);
+            Intent serviceIntent = new Intent(this,TrackLocationService.class);
+            serviceIntent.putExtra(USER_KEY,mUser.getmAllergies());
+            startService(serviceIntent);
             setUpUI();
         }else{
             getLocationFromServer();
@@ -137,6 +142,9 @@ public class MainActivity extends AppCompatActivity implements NewPostFragment.I
             public void onResponse(String response) {
                 Log.d("RESPONSE",response.toString());
                 parseJSONAllergies(response);
+                Intent serviceIntent = new Intent(MainActivity.this,TrackLocationService.class);
+                serviceIntent.putExtra(USER_KEY,mUser.getmAllergies());
+                startService(serviceIntent);
                 setUpUI();
                 hideDialog();
             }
@@ -366,6 +374,8 @@ public class MainActivity extends AppCompatActivity implements NewPostFragment.I
     }
 
     private void signOut() {
+        Intent myService = new Intent(MainActivity.this, TrackLocationService.class);
+        stopService(myService);
         this.mSessionManager.setLogin(false);
         UserDBHelper.getInstance(this).deleteLocation();
         UserDBHelper.getInstance(this).deleteAllergies();
@@ -412,6 +422,5 @@ public class MainActivity extends AppCompatActivity implements NewPostFragment.I
             return null;
         }
     }
-
 
 }
