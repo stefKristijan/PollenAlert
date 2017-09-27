@@ -295,7 +295,6 @@ public class TrackLocationService extends Service
         super.onDestroy();
 
         mLocationManager.removeUpdates(mLocationListener);
-
     }
 
     private void initializeLocationManager() {

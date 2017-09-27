@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements NewPostFragment.I
             R.mipmap.my_diary_icon
     };
     private SessionManager mSessionManager;
-    public static final String ApiKey ="gP4M9GSljRr7BrbSVA22r447bUnhRQXL"; //"" eIswG7hdAtgPUincnaJgb8SuUaQzS45R";
+    public static final String ApiKey ="eIswG7hdAtgPUincnaJgb8SuUaQzS45R"; //"gP4M9GSljRr7BrbSVA22r447bUnhRQXL";" eIswG7hdAtgPUincnaJgb8SuUaQzS45R";
     private ProgressDialog progressDialog;
 
     @Override
@@ -94,14 +94,18 @@ public class MainActivity extends AppCompatActivity implements NewPostFragment.I
             Log.d("dataFromDatabase",location.getmCity()+" "+allergies.get(0).getName());
             mUser.setmLocation(location);
             mUser.setmAllergies(allergies);
-            Intent serviceIntent = new Intent(this,TrackLocationService.class);
-            serviceIntent.putExtra(USER_KEY,mUser);
-            startService(serviceIntent);
+            if(hasLocationPermission()) startTrackingService();
             setUpUI();
         }else{
             getLocationFromServer();
             Log.d("dataFromDatabase","from server");
         }
+    }
+
+    private void startTrackingService() {
+        Intent serviceIntent = new Intent(this,TrackLocationService.class);
+        serviceIntent.putExtra(USER_KEY,mUser);
+        startService(serviceIntent);
     }
 
     private void getLocationFromServer() {
@@ -142,9 +146,7 @@ public class MainActivity extends AppCompatActivity implements NewPostFragment.I
             public void onResponse(String response) {
                 Log.d("RESPONSE",response.toString());
                 parseJSONAllergies(response);
-                Intent serviceIntent = new Intent(MainActivity.this,TrackLocationService.class);
-                serviceIntent.putExtra(USER_KEY,mUser.getmAllergies());
-                startService(serviceIntent);
+                if(hasLocationPermission()) startTrackingService();
                 setUpUI();
                 hideDialog();
             }
@@ -294,6 +296,7 @@ public class MainActivity extends AppCompatActivity implements NewPostFragment.I
                 if(grantResults.length >0){
                     if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
                         Log.d("Permission","Permission granted. User pressed allow.");
+                        startTrackingService();
                     }
                     else{
                         Log.d("Permission","Permission not granted. User pressed deny.");
